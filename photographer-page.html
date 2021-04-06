@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>photographers-page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style/style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/0a01dc4da7.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header class="logo-header">
+            <a class="logo" href="index.html"><h1 id="logo">Fish<i class="fas fa-camera"></i>ye </h1></a>
+        </header>
+        <main>
+            <header class="photograph-header">
+                <h1 class="photographer-name">Nom A remplacer en JS</h1> <br>
+                <p class="photographer-location">Endroit a modifier en JS</p>
+                <p class="photographer-catchphrase">Catchphrase json</p>
+                <button id="contactMe" class="cta">Contactez-Moi</button>
+                <div id="user"></div>
+            </header>
+            <div id="modalForm" class="modalForm">
+                <span class="close"><i id="closeForm"class="fas fa-times"></i></span>
+                <form class='contactForm'>
+                <h1>Contactez-Moi</h1>
+                    <label for="firstName">Prénom</label>
+                    <input name="firstName" type="text"></input>
+                    <label for="lastName">Nom</label>
+                    <input name="lastName" type="text"></input>
+                    <label for="email">Email</label>
+                    <input name="email" type="text"></input>
+                    <label for="yourMessage">Votre message</label>
+                    <input name="yourMessage" type="text"></input>
+                    <input name="submit" type="submit" class="submit-button" value="Envoyer"></input>
+                </form>
+                </div>
+            <script src="modal.js" async defer></script>
+        </main>
+    </body>
+</html>

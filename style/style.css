@@ -1,0 +1,94 @@
+
+
+body {
+    font-family: "Roboto"; /* https://fonts.google.com/specimen/Roboto */
+    background: #ffffff;
+    color: #901c1c;
+    position: relative;
+}
+h1{margin-block-start: 0; margin-block-end: 0;}
+a{text-decoration: none;}
+p {
+    margin: 0;
+    padding: 0;
+}
+input {
+    display: flex;
+    width: 600px;
+    height: 70px;
+    margin: 20px 0;
+}
+label {
+    font-size: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+.logo{
+    font-size: 1rem;
+    color: #901c1c;
+}
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+.modalForm {
+    display: none;
+    width: 670px;
+    height: 900px;
+    background-color: #db8876;
+    color: black;
+    position: relative ;
+    margin: 0 625px;
+    z-index: 5;
+}
+.submit-button {
+    width: 170px;
+    display: inline;
+    background: #911c1c;
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 18px;
+    line-height: 23.44px;
+    font-weight: 700;
+    margin-bottom: 100px;
+}
+
+.fa-times{
+    position: absolute;
+    left: 630px;
+    top: 10px;
+    font-size: 35px;
+}
+.fa-times:hover{text-shadow: 0px -3px 2px rgba(0,0,0,0.09);
+    cursor: pointer;
+}
+.photograph-header{
+    height: 313px;
+    background: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 0 5%;
+}
+
+.cta{
+    width: 170px;
+    height: 70px;
+    color: #ffffff;
+    background: #901c1c;
+    display: inline;
+}
+
+.user{
+    width: 526px;
+    height: 358px;
+}
+
+/* classe à attribuer aux éléments photos à afficher sur les pages des photographes */
+.photographie{
+    height: 170px;
+    width: 170px;
+}
+
