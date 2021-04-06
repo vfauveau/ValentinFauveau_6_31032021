@@ -6,7 +6,10 @@ body {
     color: #901c1c;
     position: relative;
 }
-h1{margin-block-start: 0; margin-block-end: 0;}
+h1{margin-block-start: 0; margin-block-end: 0; color : #D3573C;}
+.titre{
+    color: #901c1c;
+}
 a{text-decoration: none;}
 p {
     margin: 0;
@@ -23,9 +26,17 @@ label {
     margin: 0;
     padding: 0;
 }
-.logo{
-    font-size: 1rem;
+article{
+    display: flex ;
+    margin-top: 10px;
+}
+#logo{
+    font-size: 3rem;
     color: #901c1c;
+}
+.tagline{
+    color: black;
+    font-weight: 400;
 }
 .contactForm {
     display: flex;

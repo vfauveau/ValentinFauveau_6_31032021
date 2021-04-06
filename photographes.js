@@ -1,6 +1,7 @@
 
 const container = document.getElementById('container');
-const photographersUser = [];
+const stockage = [];
+
 
 // on récupère la base de données
 const myRequest = new Request ('data.json')
@@ -8,15 +9,35 @@ fetch(myRequest)
     .then((response) => {
         return response.json();
   }).then(function (data){
-      for(const photograph of data.photographers){
-        photographersUser.push(document.createElement("div"));
+//data = totalité du contenu json // data.photographers = array qui contient les objets photographes
+// pour chaque photographe du array data.photographers on créé une div
+      const photographes = data.photographers
+      for(photograph in photographes){
+        stockage.push(document.createElement("div"));
 
-        for(let i = 0 ; i < photograph.length ; i++){
-            let titre = document.createElement('h1');
-            titre.textContent = photograph[i].name; // on ajoute le contenu du texte
-            photographersUser[photographersUser.length-1].appendChild(titre); // on append les titres à la div photographerUser[]
+        for(let i = 0 ; photographes.length > i ; i++){
+
+            let titre = document.createElement('h1'); // creation elt html h1
+            titre.textContent = photographes[i].name; // on ajoute le contenu du texte
+            stockage[stockage.length-1].appendChild(titre); // on append les titres à la div photographerUser[]
+
+            let location = document.createElement('p');
+            location.textContent = photographes[i].city + "," + " " + photographes[i].country ;
+            stockage[stockage.length-1].appendChild(location);
+
+            let tagline = document.createElement('p');
+            tagline.classList.add("tagline")
+            tagline.textContent = photographes[i].tagline ;
+            stockage[stockage.length-1].appendChild(tagline);
+
+            let price = document.createElement('p');
+            price.textContent = photographes[i].price + "€" ;
+            stockage[stockage.length-1].appendChild(price);
+
+            let spanStockage = document.createElement('span');
+            stockage[stockage.length-1].appendChild(spanStockage);
         }
-      }container.appendChild(photographersUser[photographersUser.length-1]);
+      }container.appendChild(stockage[stockage.length-1]);
   }).catch(function(error){
       console.error('erreur');
       console.error(error);
