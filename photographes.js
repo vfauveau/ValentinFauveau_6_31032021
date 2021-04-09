@@ -2,7 +2,6 @@
 const container = document.getElementById('container');
 const stockage = [];
 
-
 // on récupère la base de données
 const myRequest = new Request ('data.json')
 fetch(myRequest)
@@ -11,47 +10,52 @@ fetch(myRequest)
   }).then(function (data){
 //data = totalité du contenu json // data.photographers = array qui contient les objets photographes
 // pour chaque photographe du array data.photographers on créé une div
-      const photographes = data.photographers
-      for(photograph in photographes){
+// photographe = nombre de photographes
+      const photographes = data.photographers;
+      for(photographe in photographes){
         stockage.push(document.createElement("div"));
+        stockage[stockage.length-1].classList.add("photographe-wrapper");
+        for(let i = 0 ; i < photographe.length ; i++){
 
-        for(let i = 0 ; photographes.length > i ; i++){
+          let image = document.createElement("img");
+          image.textContent=photographes[photographe].portrait;
+          stockage[stockage.length-1].appendChild(image);
 
-            let titre = document.createElement('h1'); // creation elt html h1
-            titre.textContent = photographes[i].name; // on ajoute le contenu du texte
-            stockage[stockage.length-1].appendChild(titre); // on append les titres à la div photographerUser[]
+          let name = document.createElement("h1");
+          name.textContent=photographes[photographe].name ;
+          stockage[stockage.length-1].appendChild(name);
 
-            let location = document.createElement('p');
-            location.textContent = photographes[i].city + "," + " " + photographes[i].country ;
-            stockage[stockage.length-1].appendChild(location);
+          let endroit = document.createElement("p");
+          endroit.textContent=photographes[photographe].city + "," + " " + photographes[photographe].country ;
+          endroit.classList.add("location");
+          stockage[stockage.length-1].appendChild(endroit);
 
-            let tagline = document.createElement('p');
-            tagline.classList.add("tagline")
-            tagline.textContent = photographes[i].tagline ;
-            stockage[stockage.length-1].appendChild(tagline);
+          let tagline = document.createElement("p");
+          tagline.textContent=photographes[photographe].tagline ;
+          tagline.classList.add("tagline");
+          stockage[stockage.length-1].appendChild(tagline);
 
-            let price = document.createElement('p');
-            price.textContent = photographes[i].price + "€" ;
-            stockage[stockage.length-1].appendChild(price);
+          let price = document.createElement("p");
+          price.textContent=photographes[photographe].price+"€" ;
+          price.classList.add("price");
+          stockage[stockage.length-1].appendChild(price);
 
-            let spanStockage = document.createElement('span');
-            stockage[stockage.length-1].appendChild(spanStockage);
-        }
-      }container.appendChild(stockage[stockage.length-1]);
+          let tagWrapper = document.createElement("span");
+          tagWrapper.classList.add('tagsWrapper');
+          stockage[stockage.length-1].appendChild(tagWrapper);
+          for(let tag of photographes[photographe].tags){
+            let el = document.createElement("button");
+            el.textContent="#"+tag;
+            el.classList.add("tagButton")
+            tagWrapper.appendChild(el);
+          }
+        }container.appendChild(stockage[stockage.length-1]);
+      }
   }).catch(function(error){
       console.error('erreur');
       console.error(error);
   })
 
-    //boucle for pour chaque image dans json créé un élément associéé dans lhtml avec tous la meme classe et contenu dans un bloc avec affichage flex ou grid
 
-    /* boucle pour chaque photographe ;
-        créé une div avec une photo,
-        un h1 (photographers.name),
-        un <p>avec (city +","+ country)</p>,
-        un <p> avec photographers.tagline.</p>,
-        un <small>avec price. + "€/jour"</small> +
-        un span ou une div contenant des éléments tags créés chacun leur tour en fonction du nombre de tags dans l'array tags[]
-
-        il faut que chaque élément soit append et possède le meme style (classe css)
-        créér des éléments + style + append */
+/* Création d'objets pour chaque image contenue dans le dossier de l'artiste 
+une figure contenant l'image puis une figcaption contenant name = "" ; prix = "" ; like = onclick incr ++*/

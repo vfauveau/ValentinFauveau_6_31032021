@@ -1,16 +1,25 @@
-
-
 body {
     font-family: "Roboto"; /* https://fonts.google.com/specimen/Roboto */
     background: #ffffff;
     color: #901c1c;
     position: relative;
 }
-h1{margin-block-start: 0; margin-block-end: 0; color : #D3573C;}
-.titre{
+h1 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    color: #d3573c;
+}
+.titre {
     color: #901c1c;
 }
-a{text-decoration: none;}
+.main__header{
+    text-align: end;width: 80%;
+    margin-right: 0;
+    margin-left: 15%;
+}
+a {
+    text-decoration: none;
+}
 p {
     margin: 0;
     padding: 0;
@@ -26,17 +35,48 @@ label {
     margin: 0;
     padding: 0;
 }
-article{
-    display: flex ;
+article {
+    display: flex;
     margin-top: 10px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
-#logo{
+#logo {
     font-size: 3rem;
     color: #901c1c;
 }
-.tagline{
+.photographe-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 400px;
+    height: 380px;
+    margin-top: 20px;
+}
+.location/* ligne 1 */ {
+    color: #901c1c;
+}
+.tagline {
     color: black;
     font-weight: 400;
+}
+.price {
+    color: #757575;
+}
+.tagWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tagButton {
+    border: 1px solid;
+    border-radius: 11px;
+    background-color: #fafafa;
+    margin-right: 8px;
+    cursor: pointer;
+    color: #901c1c;
+    border-color : #757575;;
 }
 .contactForm {
     display: flex;
@@ -49,7 +89,7 @@ article{
     height: 900px;
     background-color: #db8876;
     color: black;
-    position: relative ;
+    position: relative;
     margin: 0 625px;
     z-index: 5;
 }
@@ -66,25 +106,26 @@ article{
     margin-bottom: 100px;
 }
 
-.fa-times{
+.fa-times {
     position: absolute;
     left: 630px;
     top: 10px;
     font-size: 35px;
 }
-.fa-times:hover{text-shadow: 0px -3px 2px rgba(0,0,0,0.09);
+.fa-times:hover {
+    text-shadow: 0px -3px 2px rgba(0, 0, 0, 0.09);
     cursor: pointer;
 }
-.photograph-header{
+.photograph-header {
     height: 313px;
-    background: #FAFAFA;
+    background: #fafafa;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0 5%;
 }
 
-.cta{
+.cta {
     width: 170px;
     height: 70px;
     color: #ffffff;
@@ -92,14 +133,13 @@ article{
     display: inline;
 }
 
-.user{
+.user {
     width: 526px;
     height: 358px;
 }
 
 /* classe à attribuer aux éléments photos à afficher sur les pages des photographes */
-.photographie{
+.photographie {
     height: 170px;
     width: 170px;
 }
-
