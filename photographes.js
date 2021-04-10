@@ -16,10 +16,13 @@ fetch(myRequest)
         stockage.push(document.createElement("div"));
         stockage[stockage.length-1].classList.add("photographe-wrapper");
         for(let i = 0 ; i < photographe.length ; i++){
-
+          let lienImage = document.createElement('a');
+          lienImage.href="photographer-page.html";
           let image = document.createElement("img");
-          image.textContent=photographes[photographe].portrait;
-          stockage[stockage.length-1].appendChild(image);
+          image.classList.add('artistPicture');
+          image.src="Sample Photos/Photographers ID Photos/"+photographes[photographe].portrait;
+          lienImage.appendChild(image);
+          stockage[stockage.length-1].appendChild(lienImage);
 
           let name = document.createElement("h1");
           name.textContent=photographes[photographe].name ;

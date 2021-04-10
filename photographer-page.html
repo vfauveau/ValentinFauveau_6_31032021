@@ -26,7 +26,8 @@
             <div id="modalForm" class="modalForm">
                 <span class="close"><i id="closeForm"class="fas fa-times"></i></span>
                 <form class='contactForm'>
-                <h1>Contactez-Moi</h1>
+                <h1 id="contactTitle">Contactez-Moi</h1>
+                <h1 class="photographersName"></h1>
                     <label for="firstName">Prénom</label>
                     <input name="firstName" type="text"></input>
                     <label for="lastName">Nom</label>
@@ -34,11 +35,17 @@
                     <label for="email">Email</label>
                     <input name="email" type="text"></input>
                     <label for="yourMessage">Votre message</label>
-                    <input name="yourMessage" type="text"></input>
+                    <input name="yourMessage" id="yourMessage" type="text"></input>
                     <input name="submit" type="submit" class="submit-button" value="Envoyer"></input>
                 </form>
             </div>
             <article class="photo--list">
+            <label>Trier par</label>
+            <select>
+                <option value="Popularité">Popularité</option>
+                <option value="Date">Date</option>
+                <option value="Titre">Titre</option>
+            </select>
             </article>
             <script src="modal.js" async defer></script>
         </main>
