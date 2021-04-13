@@ -1,8 +1,17 @@
+//formulaire DOM
 let modal = document.getElementById('modalForm');
 let contact = document.getElementById('contactMe');
+let submit = document.querySelector('.submit-button');
 let closeForm = document.getElementById('closeForm');
-let modalArtistName = document.querySelector('.photographersName')
-let divUser = document.getElementById('user')
+// form inputs.value
+let firstNameInput = document.getElementById('firstName').value;
+let lastNameInput = document.getElementById('lastName').value;
+let emailInput = document.getElementById('email').value;
+let yourMessageInput = document.getElementById('yourMessage').value;
+
+let modalArtistName = document.querySelector('.photographersName');
+let divUser = document.getElementById('user');
+
 function openModal(){
     modal.style.display="block"
 }
@@ -19,9 +28,8 @@ fetch(myRequest)
         return response.json();
   }).then(function(data){
       const medias = data.media ;
-      
 }).catch(function(error){
     console.error('erreur');
     console.error(error);
 });
-modalArtistName.textContent="Mimi Keel";
+

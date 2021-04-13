@@ -2,7 +2,6 @@ body {
     font-family: "Roboto"; /* https://fonts.google.com/specimen/Roboto */
     background: #ffffff;
     color: #901c1c;
-    position: relative;
 }
 h1 {
     margin-block-start: 0;
@@ -11,12 +10,21 @@ h1 {
 }
 .titre {
     color: #901c1c;
+    font-weight: 400;
 }
-.main__header{
-    text-align: end;width: 80%;
+.main__header {
+    text-align: end;
+    width: 80%;
     margin-right: 0;
     margin-left: 15%;
+    display: flex;
+    justify-content: space-evenly;
 }
+.header-tagWrapper {
+    order: -1;
+    padding-top: 0.5em;
+}
+
 a {
     text-decoration: none;
 }
@@ -28,7 +36,7 @@ input {
     display: flex;
     width: 600px;
     height: 70px;
-    margin:5px 0;
+    margin: 5px 0;
 }
 label {
     font-size: 36px;
@@ -52,19 +60,35 @@ article {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 400px;
-    height: 380px;
+    width: 526px;
+    height: 358px;
     margin-top: 20px;
 }
-.location/* ligne 1 */ {
+.thumb-photographer-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+    cursor: pointer;
+    object-fit: cover;
+}
+.thumb-photographer-name {
+    font-size: 36px;
+}
+.thumb-photographer-location {
+    font-size: 20px;
     color: #901c1c;
 }
-.tagline {
+.thumb-photographer-tagline {
     color: black;
     font-weight: 400;
+    font-size: 15px;
 }
-.price {
+.thumb-photographer-price {
+    font-size: 13px;
     color: #757575;
+    font-weight: 400;
 }
 .tagWrapper {
     display: flex;
@@ -78,14 +102,19 @@ article {
     margin-right: 8px;
     cursor: pointer;
     color: #901c1c;
-    border-color : #C4C4C4 ;
+    border-color: #c4c4c4;
+    transition: 0.5s;
+}
+.tagButton:hover {
+    color: white;
+    background-color: #901c1c;
 }
 .contactForm {
     display: flex;
     flex-direction: column;
     padding: 5%;
 }
-#contactTitle{
+#contactTitle {
     font-size: 50px;
     color: black;
     font-weight: 500;
@@ -102,7 +131,7 @@ article {
     border-radius: 11px;
     padding: 1em;
 }
-#yourMessage{
+#yourMessage {
     height: 170px;
 }
 .submit-button {
@@ -129,17 +158,21 @@ article {
     text-shadow: 0px -3px 2px rgba(0, 0, 0, 0.09);
     cursor: pointer;
 }
-.photograph-header {
+.photographer-header {
     height: 313px;
     background: #fafafa;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0 5%;
+    padding: 2.2em;
 }
-.photographersName{
-    font-size: 50px;
-    color: black;
+.photographer-profile {
+    height: 100%;
+}
+.photographer-name {
+    font-size: 64px;
+    color: #d3573c;
     font-weight: 500;
 }
 .cta {
@@ -148,20 +181,21 @@ article {
     color: #ffffff;
     background: #901c1c;
     display: inline;
-    transition: 0.3s;
+    transition: 0.4s;
     cursor: pointer;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-weight: 700;
     font-size: 20px;
     border-radius: 5px;
+    border: none;
 }
-.cta:hover{
-    background-color: #DB8876;
+.cta:hover {
+    background-color: #db8876;
     color: black;
     border: none;
 }
-.cta:focus{
-    background-color: #DB8876;
+.cta:focus {
+    background-color: #db8876;
     color: black;
     border: none;
 }
@@ -172,23 +206,51 @@ article {
 }
 
 /* classe à attribuer aux éléments photos à afficher sur les pages des photographes */
-.artistPicture{
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    box-shadow:3px 3px 6px 0 rgba(0,0,0,0.5);
-    margin-bottom: 15px;
-    cursor: pointer;
-}
+
 .photographie {
     height: 350px;
     width: 300px;
     border-radius: 5px;
 }
 
-option{
+option {
     color: white;
     background-color: #901c1c;
     border-top: 1px solid white;
     padding: 1em;
+}
+option:hover {
+    background-color: #db8876;
+}
+option:focus {
+    background-color: #db8876;
+}
+select {
+    color: white;
+    background-color: #901c1c;
+    border-top: 1px solid white;
+    padding: 1.2em;
+    font-family: "Roboto";
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 5px;
+}
+
+#selector-label {
+    font-size: 18px;
+    font-weight: 700;
+}
+#total {
+    width: 375px;
+    height: 90px;
+    background-color: #db8876;
+    position: fixed;
+    bottom: 0;
+    left: 75%;
+    z-index: 2;
+}
+#total-content {
+    font-weight: bold;
+    color: black;
+    font-family: "Roboto";
 }
