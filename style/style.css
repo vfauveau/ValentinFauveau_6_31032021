@@ -92,8 +92,6 @@ article {
 }
 .tagWrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 .tagButton {
     border: 1px solid;
@@ -103,11 +101,18 @@ article {
     cursor: pointer;
     color: #901c1c;
     border-color: #c4c4c4;
-    transition: 0.5s;
+    transition: 0.3s;
 }
+
 .tagButton:hover {
     color: white;
     background-color: #901c1c;
+    border: 1px solid #c4c4c4;
+}
+.tagButton:focus{
+    border: 1px solid #c4c4c4;
+    background-color: #901c1c;
+    color: white;
 }
 .contactForm {
     display: flex;
@@ -235,7 +240,8 @@ select {
     font-weight: 700;
     border-radius: 5px;
 }
-
+#selector-wrapper{display: inline;
+margin-left: 100px;}
 #selector-label {
     font-size: 18px;
     font-weight: 700;
