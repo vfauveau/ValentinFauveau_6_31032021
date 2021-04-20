@@ -2,7 +2,6 @@ let header = document.querySelector('.main__header');
 const container = document.getElementById('container');
 let stockage = [];
 let arrayTag = [];
-let resetDisplay = document.getElementById('toggle');
 
 // on récupère la base de données
 const myRequest = new Request('data.json')
@@ -26,9 +25,6 @@ fetch(myRequest)
       }); // écouteur d'évenement clique sur le lien contenant l'image ;
       // envoi la valeur de l'id correspondant au photographe selectionné dans le localstorage
 
-      resetDisplay.addEventListener('click', function(){
-        stockage[photographe].style.display="flex"
-      })
       function headerTag(array) {
         let tagWrapper = document.createElement("span");
         tagWrapper.classList.add('header-tagWrapper')
@@ -92,8 +88,8 @@ fetch(myRequest)
         arrayTag.push(btn.textContent);
         }
       }
-
       creationBoutons();
+
       container.appendChild(stockage[stockage.length - 1]); // ajout du container plein au container principal de la page
     } //SORTIE DE BOUCLE (photographe in photographes)
     var unique = arrayTag.filter(onlyUnique);

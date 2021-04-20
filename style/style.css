@@ -1,7 +1,8 @@
 body {
-    font-family: "Roboto"; /* https://fonts.google.com/specimen/Roboto */
+    font-family: 'DM Sans', sans-serif; /* https://fonts.google.com/specimen/Roboto */
     background: #ffffff;
     color: #901c1c;
+    font-weight: 400
 }
 h1 {
     margin-block-start: 0;
@@ -13,12 +14,12 @@ h1 {
     font-weight: 400;
 }
 .main__header {
-    text-align: end;
-    width: 80%;
     margin-right: 0;
-    margin-left: 15%;
+    margin-left: 24%;
+    align-items: flex-end;
     display: flex;
     justify-content: space-evenly;
+    padding-bottom: 10px;
 }
 .header-tagWrapper {
     order: -1;
@@ -48,12 +49,28 @@ label {
 article {
     display: flex;
     margin-top: 10px;
-    justify-content: space-evenly;
     flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 #logo {
     font-size: 3rem;
     color: #901c1c;
+    margin: 0 9%;
+    margin-top: 3%;
+    margin-bottom: -40px;
+    width: 200px;
+    height: 50px;
+    display: flex;
+}
+#logo2 {
+    font-size: 3rem;
+    color: #901c1c;
+    margin-left: 5%;
+    margin-top: 14px;
+    margin-bottom: 14px;
+    width: 200px;
+    height: 50px;
+    display: flex;
 }
 .photographe-wrapper {
     display: flex;
@@ -90,6 +107,12 @@ article {
     color: #757575;
     font-weight: 400;
 }
+#photographer-price {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    text-align: end;
+}
 .tagWrapper {
     display: flex;
 }
@@ -102,6 +125,8 @@ article {
     color: #901c1c;
     border-color: #c4c4c4;
     transition: 0.3s;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 .tagButton:hover {
@@ -109,7 +134,7 @@ article {
     background-color: #901c1c;
     border: 1px solid #c4c4c4;
 }
-.tagButton:focus{
+.tagButton:focus {
     border: 1px solid #c4c4c4;
     background-color: #901c1c;
     color: white;
@@ -118,19 +143,22 @@ article {
     display: flex;
     flex-direction: column;
     padding: 5%;
+    z-index: 2;
 }
 #contactTitle {
     font-size: 50px;
     color: black;
     font-weight: 500;
 }
+#modalWrapper{
+    display : none ;
+}
 .modalForm {
-    display: none;
     width: 670px;
     height: 900px;
     background-color: #db8876;
     color: black;
-    position: relative;
+    position: absolute;
     margin: 0 625px;
     z-index: 5;
     border-radius: 11px;
@@ -208,16 +236,25 @@ article {
 #user {
     width: 526px;
     height: 358px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 /* classe à attribuer aux éléments photos à afficher sur les pages des photographes */
 
-.photographie {
-    height: 350px;
-    width: 300px;
+.thumb-photographie {
+    height: 300px;
+    width: 350px;
     border-radius: 5px;
+    object-fit: cover;
 }
-
+.thumb-video {
+    width: 350px;
+    height: 300px;
+    border-radius: 5px;
+    object-fit: cover;
+}
 option {
     color: white;
     background-color: #901c1c;
@@ -240,23 +277,89 @@ select {
     font-weight: 700;
     border-radius: 5px;
 }
-#selector-wrapper{display: inline;
-margin-left: 100px;}
+#selector-wrapper {
+    display: inline;
+    margin-left: 100px;
+}
 #selector-label {
     font-size: 18px;
     font-weight: 700;
 }
 #total {
-    width: 375px;
-    height: 90px;
+    width: 370px;
+    height: 80px;
     background-color: #db8876;
     position: fixed;
     bottom: 0;
     left: 75%;
     z-index: 2;
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 24px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 #total-content {
     font-weight: bold;
     color: black;
-    font-family: "Roboto";
+    padding: 5%;
+}
+
+.photographer-location {
+    font-size: 24px;
+    margin-bottom: 14px;
+    color: #901c1c;
+}
+.photographer-tagline {
+    font-size: 18px;
+    margin-bottom: 14px;
+    color: #525252;
+}
+
+#lightbox{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(255, 251, 251);
+}
+.lightbox-content{
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* The Close Button */
+#closeLightbox{
+    color : grey ;
+    position: relative;
+    top: auto;
+}
+  .close:hover,
+  .close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+  }
+/*mediaQ */
+
+@media (max-width: 1440px) {
+    .photographe-wrapper {
+        width: 450px;
+    }
+}
+@media (min-width: 360px) and (max-width: 500px) {
+    .photographie {
+        width: 335px;
+        height: 190px;
+    }
 }

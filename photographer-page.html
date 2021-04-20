@@ -13,9 +13,34 @@
     </head>
     <body>
         <header class="logo-header">
-            <a class="logo" href="index.html"><h1 id="logo">Fish<i class="fas fa-camera"></i>ye </h1></a>
+            <a class="logolink" href="index.html"><h1 id="logo2">Fish<i class="fas fa-camera"></i>ye </h1></a>
         </header>
         <main>
+        <!-- lightbox-->
+        <div id="lightbox">
+            <span class="close"><i id="closeLightbox"class="fas fa-times"></i></span>
+        </div>
+        <!-- FIN lightbox-->
+        <!-- Modal Formulaire-->
+        <div id="modalWrapper">
+            <div id="modalForm" class="modalForm">
+                <span class="close"><i id="closeForm"class="fas fa-times"></i></span>
+                <form class='contactForm'>
+                    <h1 id="contactTitle">Contactez-Moi</h1>
+                    <h1 class="photographer-nameModal"></h1>
+                    <label for="firstName">Prénom</label>
+                    <input name="firstName" id="firstName"type="text"></input>
+                    <label for="lastName">Nom</label>
+                    <input name="lastName" id="lastName" type="text"></input>
+                    <label for="email">Email</label>
+                    <input name="email" id="email" type="text"></input>
+                    <label for="yourMessage">Votre message</label>
+                    <input name="yourMessage" id="yourMessage" type="text"></input>
+                    <input name="submit" type="submit" class="submit-button" value="Envoyer"></input>
+                </form>
+            </div>
+        </div>
+                <!-- FIN Modal Formulaire-->
             <header class="photographer-header">
                 <div class="photographer-profile">
                     <h1 class="photographer-name"></h1> <br>
@@ -30,22 +55,6 @@
                 <img class="thumb-photographer-picture"></img>
                 </a></div>
             </header>
-            <div id="modalForm" class="modalForm">
-                <span class="close"><i id="closeForm"class="fas fa-times"></i></span>
-                <form class='contactForm'>
-                    <h1 id="contactTitle">Contactez-Moi</h1>
-                    <h1 class="photographer-name"></h1>
-                    <label for="firstName">Prénom</label>
-                    <input name="firstName" id="firstName"type="text"></input>
-                    <label for="lastName">Nom</label>
-                    <input name="lastName" id="lastName" type="text"></input>
-                    <label for="email">Email</label>
-                    <input name="email" id="email" type="text"></input>
-                    <label for="yourMessage">Votre message</label>
-                    <input name="yourMessage" id="yourMessage" type="text"></input>
-                    <input name="submit" type="submit" class="submit-button" value="Envoyer"></input>
-                </form>
-            </div>
             <span id="selector-wrapper">
                 <label id="selector-label">Trier par</label>
                 <select>
@@ -54,10 +63,13 @@
                     <option value="Titre">Titre</option>
                 </select>
             </span>
-            <article id="container">
+            <article id="mediaContainer">
 
             <div id="total">
-                <span id="total-content"></span>
+                <span id="total-content">
+                    <strong id="total-likes"></strong>
+                    <strong id="photographer-price"></strong>
+                </span>
             </div>
             </article>
             <script src="artist.js" async defer></script>
