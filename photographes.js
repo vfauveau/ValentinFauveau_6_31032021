@@ -34,13 +34,13 @@ fetch(myRequest)
           elt.classList.add('tagButton');
           tagWrapper.appendChild(elt);
           elt.addEventListener('click', () => {
-            for(let x = 0 ; x < stockage.length ; x++){
-              stockage[x].style.display="flex";
+            for (let x = 0; x < stockage.length; x++) {
+              stockage[x].style.display = "flex";
             }
-            let filtre = elt.textContent.substring(1) ;
-            for(let i = 0 ; photographes.length > i ; i++){
-                if(!photographes[i].tags.includes(filtre)){
-                  stockage[i].style.display="none";
+            let filtre = elt.textContent.substring(1);
+            for (let i = 0; photographes.length > i; i++) {
+              if (!photographes[i].tags.includes(filtre)) {
+                stockage[i].style.display = "none";
               }
             }
           })
@@ -79,19 +79,17 @@ fetch(myRequest)
       wrapper.classList.add('tagsWrapper');
       stockage[stockage.length - 1].appendChild(wrapper);
 
-      function creationBoutons (){
-        for(let tag in photographes[photographe].tags){
+      for (let tag in photographes[photographe].tags) {
         let btn = document.createElement('button');
         btn.classList.add('tagButton');
-        btn.textContent="#"+photographes[photographe].tags[tag];
+        btn.textContent = "#" + photographes[photographe].tags[tag];
         wrapper.appendChild(btn);
         arrayTag.push(btn.textContent);
-        }
       }
-      creationBoutons();
 
       container.appendChild(stockage[stockage.length - 1]); // ajout du container plein au container principal de la page
-    } //SORTIE DE BOUCLE (photographe in photographes)
+    }
+    //SORTIE DE BOUCLE (photographe in photographes)
     var unique = arrayTag.filter(onlyUnique);
 
     // tri tous les tags en double et les supprime
