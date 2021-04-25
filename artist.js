@@ -9,64 +9,66 @@ let nameTitle = document.querySelector(".photographer-name");
 let endroit = document.querySelector(".photographer-location");
 let tagline = document.querySelector(".photographer-tagline");
 let imageProfil = document.querySelector('.thumb-photographer-picture');
-let price = document.getElementById('photographer-price');
-let totalContent = document.getElementById('total-content');
+let spanPrice = document.getElementById('total-photographer-price');
+let spanLike = document.getElementById('total-likes');
 let tagWrapper = document.querySelector('.tagWrapper');
 let getId = localStorage.getItem("idphot");
 let mediaContainer = document.getElementById('mediaContainer');
+let select = document.getElementById('select');
 
 const lightbox = document.getElementById('lightbox');
-const closeLightbox = document.getElementById('closeLightbox')
+const closeLightbox = document.getElementById('closeLightbox');
+const showMedia = document.querySelectorAll('.thumb-photographie');
+
 // ouverture et fermeture du formulaire
 contact.onclick = () => modalWrapper.style.display = "block";
 closeForm.onclick = () => modalWrapper.style.display = "none";
 closeLightbox.onclick = () => lightbox.style.display = "none";
 
-
-
 class factory {
-    constructor(content) {
-		if(content.includes(".mp4")) return new factoryVideo(content);
-        else return new factoryImage(content);
+    static create(type = "image") {
+        if (type == "image") return new imageFactory();
+        if (type == "video") return new videoFactory();
     }
 }
 
-//toujours la même classe permettant de créer une vidéo
-class factoryVideo {
-    constructor(content) {
-        this.el = document.createElement("video");
-        this.el.classList.add('thumb-photographie')
-        this.el.appendChild(document.createElement("source"));
-        this.el.children[0].src = content;
-
+class imageFactory {
+    constructor() {
+        this._fig = document.createElement('figure');
+        this._caption = document.createElement('figcaption');
+        this._el = document.createElement('img');
+        this._el.classList.add('thumb-photographie');
+        this._el.onclick = () => { lightbox.style.display = "block" }
     }
-    //un getter permettant ici de récupérer l'élément html crée dans le constructeur
-    getEl() {
-        return this.el;
-
-    }
-    affich() {
-        mediaContainer.appendChild(this.el);
+    affich(content) {
+        this._el.src = content;
+        this._fig.appendChild(this._el);
+        this._fig.appendChild(this._caption);
+        mediaContainer.appendChild(this._fig);
     }
 }
 
-class factoryImage {
-    constructor(content) {
-        this.fig = document.createElement('figure');
-        this.caption = document.createElement('figcaption');
-        this.el = document.createElement("img");
-        this.fig.appendChild(this.el);
-        this.fig.appendChild(this.caption);
-        this.el.classList.add('thumb-photographie');
-        this.el.src = content;
+class videoFactory {
+    constructor() {
+        this._fig = document.createElement('figure');
+        this._caption = document.createElement('figcaption');
+        this._el = document.createElement("video");
+        this._el.classList.add('thumb-video')
+        this._el.appendChild(document.createElement("source"));
     }
     getEl() {
-        return this.el;
+        return this._el;
     }
-    affich() {
-        mediaContainer.appendChild(this.fig);
+    affich(content) {
+        this._fig.appendChild(this._el);
+        this._fig.appendChild(this._caption);
+        this._el.children[0].src = content;
+        this._el.src = content;
+        mediaContainer.appendChild(this._fig);
     }
 }
+let vid1 = factory.create("video");
+let im1 = factory.create("image");
 
 const myRequest = new Request('data.json')
 fetch(myRequest)
@@ -76,14 +78,16 @@ fetch(myRequest)
         // récupération des arrays from .json
         const photographes = data.photographers;
         const medias = data.media;
-        // remplissage du header en fonction de la valeur (ID) reçue en localStorage
+        // remplissage des zones de texte statique en fonction de la valeur (ID) reçue en localStorage
         for (let photographe in photographes) {
             if (getId == photographes[photographe].id) {
                 nameTitle.textContent = photographes[photographe].name;
+                modalArtistName.textContent = photographes[photographe].name;
                 endroit.textContent = photographes[photographe].city + ", " + photographes[photographe].country;
                 tagline.textContent = photographes[photographe].tagline;
                 imageProfil.src = "Sample Photos/Photographers ID Photos/" + photographes[photographe].portrait;
-                price.textContent = photographes[photographe].price + "€ / Jour";
+                imageProfil.setAttribute('alt', photographes[photographe].name)
+                spanPrice.textContent = photographes[photographe].price + "€ / Jour";
                 for (let tag of photographes[photographe].tags) {
                     let el = document.createElement("button");
                     el.textContent = "#" + tag;
@@ -94,52 +98,60 @@ fetch(myRequest)
             }
         }
         // filtre des medias correspondants à l'artiste
-        const filteredMedias = medias.filter((item) => {
+        var filteredMedias = medias.filter((item) => {
             if (getId == item.photographerId) {
                 return item
             }
         });
 
-        // Tri images vs videos pour pouvoir passer les arrays dans la Factory
-        const images = [] ;
-        const videos = [] ;
-        let totalLikes = 0;
+        // renvoi des médias vers un array puis tri dans ordre décroissant de Popularité
+        var filterDefault = [];
         filteredMedias.forEach(element => {
-            if(element.video === undefined){
-                images.push(element);
-            }
-            else{videos.push(element);
-            }
+            filterDefault.push(element)
         });
-        // filtrage par date
-        filteredMedias.sort(function(a,b){
-            return new Date(b.date) - new Date(a.date);
-        });
-        // fin filtrage par date
-
-        // utilisation des arrays dans le factory et création des élements HTML
-        for(media of images){
-
-            const im1 = new factory('Sample Photos/'+media.image)
-            im1.affich();
+        filterDefault.sort(function (a, b) { return b.likes - a.likes });
+        /* fonction qui vérifie les éléments contenus dans les tableaux et les transmets à la factory pour qu'elle créé des éléments correspondants au type */
+        function printing(array) {
+            array.forEach(element => {
+                if (element.image === undefined) {
+                    let vid1 = factory.create("video");
+                    vid1.affich("Sample Photos/" + element.video)
+                }
+                else {
+                    let im1 = factory.create("image");
+                    im1.affich("Sample Photos/" + element.image)
+                }
+            });
         }
-        for(media of videos){
+        // impression de la page défaut (= par Popularité)
 
-            const vid1 = new factory('Sample Photos/'+media.video);
-            vid1.affich();
+        printing(filterDefault);
+
+        // Détection de changement de selection et affichage en fonction
+        select.onchange = () => {
+            mediaContainer.innerHTML = "";
+            if (select.value === "Popularité") {
+                printing(filterDefault)
+
+            }
+            if (select.value === "Date") {
+                var filterByDate = filteredMedias.sort(function (a, b) {
+                    return new Date(b.date) - new Date(a.date);
+                });
+                printing(filterByDate)
+            }
+            if (select.value === "Titre") {
+
+            }
         }
 
-        for(media in filteredMedias){
-            totalLikes += filteredMedias.likes;
+        let totalLikes = 0;
+        for (media in filteredMedias) {
+            totalLikes += filteredMedias[media].likes;
         }
-        
-        totalContent.textContent = totalLikes;
+        spanLike.textContent = totalLikes;
 
     }).catch(function (error) {
         console.error('erreur');
         console.error(error);
     });
-
-
-
-// poster = pour miniature de video

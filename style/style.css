@@ -142,13 +142,13 @@ article {
 .contactForm {
     display: flex;
     flex-direction: column;
-    padding: 5%;
+    padding: 4%;
     z-index: 2;
 }
 #contactTitle {
-    font-size: 50px;
+    font-size: 64px;
     color: black;
-    font-weight: 500;
+    font-weight: 400;
 }
 #modalWrapper{
     display : none ;
@@ -248,7 +248,9 @@ article {
     width: 350px;
     border-radius: 5px;
     object-fit: cover;
+    cursor: pointer;
 }
+
 .thumb-video {
     width: 350px;
     height: 300px;
@@ -293,9 +295,6 @@ select {
     bottom: 0;
     left: 75%;
     z-index: 2;
-    display: inline-flex;
-    justify-content: flex-end;
-    align-items: center;
     font-size: 24px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -303,7 +302,10 @@ select {
 #total-content {
     font-weight: bold;
     color: black;
-    padding: 5%;
+    padding: 7%;
+    display: flex;
+    justify-content: space-between;
+    
 }
 
 .photographer-location {
@@ -316,7 +318,11 @@ select {
     margin-bottom: 14px;
     color: #525252;
 }
-
+.photographer-nameModal{
+    font-size: 64px;
+    color : black ; 
+    font-weight: 400;
+}
 #lightbox{
     display: none;
     position: fixed;
