@@ -33,6 +33,7 @@ contact.onclick = () => modalWrapper.style.display = "block";
 closeForm.onclick = () => modalWrapper.style.display = "none";
 closeLightbox.onclick = () => lightbox.style.display= "none";
 
+
 // envoi du formulaire
 contactForm.onsubmit = () => console.log(inputFirstName.value, inputLastName.value, inputEmail.value, inputYourMessage.value)
 
@@ -70,6 +71,7 @@ class imageFactory {
         this._fig.appendChild(this._caption);
         mediaContainer.appendChild(this._fig);
     }
+
     showPrice (price){
         let priceText = document.createElement('strong');
         priceText.textContent=price+" €"
@@ -104,9 +106,9 @@ class videoFactory {
     affich(content) {
         let captionTitle = content.replace("Sample Photos/", " ");
         captionTitle = captionTitle.replaceAll("_", " ");
-        captionTitle = captionTitle.replace(".mp4", " ");
+        captionTitle = captionTitle.replace(".mp4", "");
         this._fig.appendChild(this._el);
-        this._fig.appendChild(this._caption);
+        this._fig.appendChild(this._caption).textContent=captionTitle;
         this._el.children[0].src = content;
         this._el.src = content;
         mediaContainer.appendChild(this._fig);
@@ -164,7 +166,7 @@ fetch(myRequest)
         });
         filterDefault.sort(function (a, b) { return b.likes - a.likes });
         /* fonction qui vérifie les éléments contenus dans les tableaux et les transmets à la factory pour qu'elle créé des éléments correspondants au type */
-        function factorySender(array) {
+        function affichageMedias(array) {
             array.forEach(element => {
                 if (element.image === undefined) {
                     let vid1 = factory.create("video");
@@ -181,24 +183,25 @@ fetch(myRequest)
             });
         }
         // impression de la page défaut (= par Popularité)
-        factorySender(filterDefault);
+        affichageMedias(filterDefault);
 
         // Détection de changement de selection et affichage en fonction
         select.onchange = () => {
             mediaContainer.innerHTML = "";
             if (select.value === "Popularité") {
-                factorySender(filterDefault)
+                affichageMedias(filterDefault)
 
             }
             if (select.value === "Date") {
                 var filterByDate = filteredMedias.sort(function (a, b) {
                     return new Date(b.date) - new Date(a.date);
                 });
-                factorySender(filterByDate)
+                affichageMedias(filterByDate)
             }
-            if (select.value === "Titre") {
+            if (select.value === "Titre"){
 
             }
+            
         }
 
         let totalLikes = 0;
