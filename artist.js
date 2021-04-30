@@ -32,46 +32,38 @@ let modalArtistName = document.querySelector('.photographer-nameModal');
 contact.onclick = () => modalWrapper.style.display = "block";
 closeForm.onclick = () => modalWrapper.style.display = "none";
 closeLightbox.onclick = () => lightbox.style.display= "none";
-
+let contenu = document.createElement('img') ;
+let contenuDesc = document.createElement('span');
+let imgs = document.getElementsByClassName('thumb-photographie');
 
 // envoi du formulaire
 contactForm.onsubmit = () => console.log(inputFirstName.value, inputLastName.value, inputEmail.value, inputYourMessage.value)
 
 class factory {
-    static create(type = "image") {
-        if (type == "image") return new imageFactory();
-        if (type == "video") return new videoFactory();
+    static create(type = {}) {
+        if (type.image) return new imageFactory(type.image);
+        if (type.video) return new videoFactory(type.video);
     }
 }
 
 class imageFactory {
-    constructor() {
+    constructor(content) {
         this._fig = document.createElement('figure');
         this._caption = document.createElement('figcaption');
         this._el = document.createElement('img');
         this._el.classList.add('thumb-photographie');
-        this._el.onclick = () => {
-            lightbox.style.display = "flex";
-            let contenu = document.createElement('img') ;
-            contenu.src = this._el.src ;
-            contenu.classList.add('active');
-            while (lightboxMedia.firstChild) {
-                lightboxMedia.removeChild(lightboxMedia.firstChild)
-                }
-            lightboxMedia.appendChild(contenu);
-            }
+        this.init(content);
         }
-    affich(content) {
-        this._el.src = content;
+    init (content) {
+        this._el.src = "Sample Photos/"+content;
+        this._fig.appendChild(this._el);
+        this._fig.appendChild(this._caption);
         let captionTitle = content.replace("Sample Photos/", " ");
         captionTitle = captionTitle.replace(".jpg", " ");
         captionTitle = captionTitle.replaceAll("_", " ");
         this._caption.textContent = captionTitle;
-        this._fig.appendChild(this._el);
-        this._fig.appendChild(this._caption);
-        mediaContainer.appendChild(this._fig);
+        this._el.setAttribute('alt', "Photo "+ captionTitle);
     }
-
     showPrice (price){
         let priceText = document.createElement('strong');
         priceText.textContent=price+" €"
@@ -82,35 +74,33 @@ class imageFactory {
         likesText.textContent=likes;
         this._caption.appendChild(likesText)
     }
+    affich() {
+        mediaContainer.appendChild(this._fig);
+    }
 }
 
 class videoFactory {
-    constructor() {
+    constructor(content) {
         this._fig = document.createElement('figure');
         this._caption = document.createElement('figcaption');
         this._el = document.createElement("video");
         this._el.classList.add('thumb-photographie');
         this._el.appendChild(document.createElement("source"));
-        this._el.onclick = () => {
-            lightbox.style.display = "flex";
-            let contenu = document.createElement('video') ;
-            contenu.src = this._el.src ;
-            contenu.classList.add('active');
-            while (lightboxMedia.firstChild) {
-                lightboxMedia.removeChild(lightboxMedia.firstChild)
-                }
-            lightboxMedia.appendChild(contenu);
-            contenu.play();
-            }
+        this.init(content)
         }
-    affich(content) {
+    init (content) {
+        this._el.children[0].src = content;
+        this._el.src = "Sample Photos/"+content;
         let captionTitle = content.replace("Sample Photos/", " ");
         captionTitle = captionTitle.replaceAll("_", " ");
         captionTitle = captionTitle.replace(".mp4", "");
         this._fig.appendChild(this._el);
         this._fig.appendChild(this._caption).textContent=captionTitle;
-        this._el.children[0].src = content;
-        this._el.src = content;
+        this._el.setAttribute('alt', "Video "+ captionTitle);
+
+
+    }
+    affich() {
         mediaContainer.appendChild(this._fig);
     }
     showPrice (price){
@@ -161,26 +151,38 @@ fetch(myRequest)
 
         // renvoi des médias vers un array puis tri dans ordre décroissant de Popularité
         var filterDefault = [];
-        filteredMedias.forEach(element => {
-            filterDefault.push(element)
-        });
-        filterDefault.sort(function (a, b) { return b.likes - a.likes });
+        filteredMedias.forEach(element => {filterDefault.push(element)});
+        filterDefault.sort(function (a, b) {return b.likes - a.likes});
+        function lightboxtri () {
+            let currentImage = 0 ;
+            for(let item = 0 ; imgs.length > item ; item++){
+                imgs[item].onclick=() => {
+                    lightbox.style.display = "flex";
+                    contenu.src = imgs[item].src ;
+                    contenu.classList.add('active');
+                    while (lightboxMedia.firstChild) {
+                        lightboxMedia.removeChild(lightboxMedia.firstChild)
+                        }
+                    lightboxMedia.appendChild(contenu);
+                }
+                currentImage = item
+            }
+
+            nextButton.onclick=()=>{contenu.src=imgs[(currentImage++)%imgs.length].src}
+            prevButton.onclick=()=>{
+                if(currentImage === 0){currentImage === imgs.length}
+                contenu.src=imgs[(currentImage--)%imgs.length].src
+            }
+        }
         /* fonction qui vérifie les éléments contenus dans les tableaux et les transmets à la factory pour qu'elle créé des éléments correspondants au type */
         function affichageMedias(array) {
             array.forEach(element => {
-                if (element.image === undefined) {
-                    let vid1 = factory.create("video");
-                    vid1.affich("Sample Photos/" + element.video);
-                    vid1.showPrice(element.price);
-                    vid1.showLikes(element.likes);
-                }
-                else {
-                    let im1 = factory.create("image");
-                    im1.affich("Sample Photos/" + element.image);
-                    im1.showPrice(element.price);
-                    im1.showLikes(element.likes);
-                }
+                    let elt = factory.create(element);
+                    elt.affich(element.image?element.image:element.video);
+                    elt.showPrice(element.price);
+                    elt.showLikes(element.likes);
             });
+            lightboxtri();
         }
         // impression de la page défaut (= par Popularité)
         affichageMedias(filterDefault);
@@ -200,10 +202,9 @@ fetch(myRequest)
             }
             if (select.value === "Titre"){
 
+                affichageMedias(filteredMedias)
             }
-            
         }
-
         let totalLikes = 0;
         for (media in filteredMedias) {
             totalLikes += filteredMedias[media].likes;
