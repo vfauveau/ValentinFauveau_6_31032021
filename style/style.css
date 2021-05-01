@@ -1,9 +1,11 @@
-body {
+body,html {
     font-family: "DM Sans", sans-serif; /* https://fonts.google.com/specimen/DM-Sans */
     background: #ffffff;
     color: #901c1c;
     font-weight: 400;
+    height: 100%;
 }
+
 h1 {
     margin-block-start: 0;
     margin-block-end: 0;
@@ -35,10 +37,11 @@ p {
 input {
     display: flex;
     width: 600px;
-    height: 70px;
+    height: 65px;
     margin: 5px 0;
     font-size: 24px;
 }
+
 label {
     font-size: 36px;
     margin: 0;
@@ -53,7 +56,9 @@ article {
     justify-content: space-evenly;
 }
 
-figure{margin: 1% 4%;}
+figure {
+    margin: 1% 4%;
+}
 figcaption {
     font-size: 22px;
     font-weight: 500;
@@ -139,8 +144,11 @@ figcaption {
     transition: 0.3s;
     font-size: 12px;
     font-weight: 500;
-}
 
+}
+.header-tagWrapper > .tagButton{
+    text-transform: capitalize;
+}
 .tagButton:hover {
     color: white;
     background-color: #901c1c;
@@ -162,23 +170,30 @@ figcaption {
     color: black;
     font-weight: 400;
 }
-#modalWrapper {
-    display: none;
-}
+
 #modalForm {
     width: 670px;
     height: 900px;
     background-color: #db8876;
     color: black;
     position: absolute;
-    margin: 0 625px;
+    margin: 0 33%;
     z-index: 5;
     border-radius: 11px;
     padding: 1em;
+    display : none ;
 }
 #yourMessage {
-    height: 170px;
+    height: 150px;
+    line-height: 1.5;    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
 }
+#yourMessage:focus,#yourMessage:active,textarea {
+    border: none;
+}
+textarea{font-size: 24px;
+    letter-spacing: 1px;}
 .submit-button {
     width: 170px;
     display: inline;
@@ -190,6 +205,18 @@ figcaption {
     line-height: 23.44px;
     font-weight: 700;
     margin-bottom: 100px;
+}
+#cover{
+    opacity: 0.6;
+    background-color: #757575;
+    z-index: 1;
+    display: none;
+    position:fixed;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    min-height: 100%;
 }
 
 .fa-times {
@@ -299,7 +326,7 @@ select {
 #selector-label {
     font-size: 18px;
     font-weight: 700;
-    color : black ;
+    color: black;
     margin-right: 20px;
 }
 #total {
@@ -434,8 +461,57 @@ select {
     }
 }
 @media (min-width: 360px) and (max-width: 500px) {
+    body {
+        margin: 0;
+    }
+    main {
+        width: 375px;
+    }
+    .main__header{
+        margin: 0;
+    }
     .photographie {
         width: 335px;
         height: 190px;
     }
+    .photographer-header {
+        background-color: #ffffff;
+        padding: 0;
+    }
+    .photographer-location,
+    .photographer-tagline {
+        margin-bottom: 7px;
+        font-size: 13px;
+    }
+    .photographer-name {
+        font-size: 30px;
+    }
+    .photographer-profile{
+        width : 70%;
+    }
+    #contactMe {
+        position: fixed;
+        bottom: 15%;
+        left: 22%;
+        z-index: 5;
+        width: 170px;
+        height: 35px;
+        font-size: 18px;
+    }
+    #user {
+        width: auto;
+        height: auto;
+    }
+    .thumb-photographer-picture {
+        width: 150px;
+        height: 150px;
+    }
+    #total {
+        position: initial;
+        width: 360px;
+        align-self: center;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
 }

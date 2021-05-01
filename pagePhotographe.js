@@ -17,7 +17,7 @@ const nextButton = document.querySelector('.lightbox-next');
 let spanPrice = document.getElementById('total-photographer-price');
 let spanLike = document.getElementById('total-likes');
 //formulaire DOM
-let modal = document.getElementById('modalWrapper');
+let modal = document.getElementById('modalForm');
 let contact = document.getElementById('contactMe');
 let submit = document.querySelector('.submit-button');
 let closeForm = document.getElementById('closeForm');
@@ -29,12 +29,14 @@ let inputYourMessage = document.getElementById('yourMessage');
 let modalArtistName = document.querySelector('.photographer-nameModal');
 
 // ouverture et fermeture du formulaire / de la lightbox
-contact.onclick = () => modalWrapper.style.display = "block";
-closeForm.onclick = () => modalWrapper.style.display = "none";
+let cover = document.getElementById('cover');
+contact.onclick = () => {modal.style.display = "block"; cover.style.display="block";} 
+closeForm.onclick = () => {modal.style.display = "none";  cover.style.display="none"; }
 closeLightbox.onclick = () => lightbox.style.display= "none";
-let contenu = document.createElement('img') ;
+let contenu = document.createElement('img');
 let contenuDesc = document.createElement('span');
 let imgs = document.getElementsByClassName('thumb-photographie');
+var els = []
 
 // envoi du formulaire
 contactForm.onsubmit = () => console.log(inputFirstName.value, inputLastName.value, inputEmail.value, inputYourMessage.value)
@@ -72,7 +74,9 @@ class imageFactory {
     showLikes (likes){
         let likesText =document.createElement('strong');
         likesText.textContent=likes;
-        this._caption.appendChild(likesText)
+        this._caption.appendChild(likesText);
+        els.push(likesText)
+
     }
     affich() {
         mediaContainer.appendChild(this._fig);
@@ -111,6 +115,7 @@ class videoFactory {
     showLikes (likes){
         let likesText =document.createElement('strong');
         likesText.textContent=likes;
+        els.push(likesText)
         this._caption.appendChild(likesText)
     }
 }
@@ -130,14 +135,13 @@ fetch(myRequest)
                 modalArtistName.textContent = photographes[photographe].name;
                 endroit.textContent = photographes[photographe].city + ", " + photographes[photographe].country;
                 tagline.textContent = photographes[photographe].tagline;
-                imageProfil.src = "Sample Photos/Photographers ID Photos/" + photographes[photographe].portrait;
-                imageProfil.setAttribute('alt', photographes[photographe].name)
+                imageProfil.src = "Sample Photos/Photographers ID Photos/" + photographes[photographe].portrait; imageProfil.setAttribute('alt', photographes[photographe].name) ;
                 spanPrice.textContent = photographes[photographe].price + "€ / Jour";
                 for (let tag of photographes[photographe].tags) {
                     let el = document.createElement("button");
                     el.textContent = "#" + tag;
-                    el.style.fontSize = "18px";
                     el.classList.add("tagButton");
+                    el.style.fontSize = "18px";
                     tagWrapper.appendChild(el);
                 }
             }
@@ -153,6 +157,7 @@ fetch(myRequest)
         var filterDefault = [];
         filteredMedias.forEach(element => {filterDefault.push(element)});
         filterDefault.sort(function (a, b) {return b.likes - a.likes});
+
         function lightboxtri () {
             let currentImage = 0 ;
             for(let item = 0 ; imgs.length > item ; item++){
@@ -165,9 +170,7 @@ fetch(myRequest)
                         }
                     lightboxMedia.appendChild(contenu);
                 }
-                currentImage = item
             }
-
             nextButton.onclick=()=>{contenu.src=imgs[(currentImage++)%imgs.length].src}
             prevButton.onclick=()=>{
                 if(currentImage === 0){currentImage === imgs.length}
@@ -187,7 +190,7 @@ fetch(myRequest)
         // impression de la page défaut (= par Popularité)
         affichageMedias(filterDefault);
 
-        // Détection de changement de selection et affichage en fonction
+        // Détection de changement de selection et affichage en fonction de la valeur
         select.onchange = () => {
             mediaContainer.innerHTML = "";
             if (select.value === "Popularité") {
@@ -201,18 +204,15 @@ fetch(myRequest)
                 affichageMedias(filterByDate)
             }
             if (select.value === "Titre"){
+                let alphabetic = filteredMedias.reverse()
+                affichageMedias(alphabetic)
 
-                affichageMedias(filteredMedias)
             }
         }
-        let totalLikes = 0;
-        for (media in filteredMedias) {
-            totalLikes += filteredMedias[media].likes;
-        }
-        spanLike.textContent = totalLikes;
+        let likesTotaux = els.map(el=>el.textContent).reduce((a,b)=>parseInt(a)+parseInt(b));
+        spanLike.textContent = likesTotaux
 
     }).catch(function (error) {
         console.error('erreur');
         console.error(error);
     });
-
