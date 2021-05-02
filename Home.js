@@ -26,8 +26,7 @@ fetch(myRequest)
       // envoi la valeur de l'id correspondant au photographe selectionné dans le localstorage
 
       function headerTag(array) {
-        let tagWrapper = document.createElement("span");
-        tagWrapper.classList.add('header-tagWrapper')
+        let tagWrapper = document.querySelector('.header-tagWrapper')
         for (element of array) {
           let elt = document.createElement('button');
           elt.textContent = element;
@@ -55,7 +54,7 @@ fetch(myRequest)
       lienImage.appendChild(image);
       stockage[stockage.length - 1].appendChild(lienImage);
 
-      let name = document.createElement("h1"); // creation d'element HTML
+      let name = document.createElement("h2"); // creation d'element HTML
       name.classList.add('thumb-photographer-name'); // ajout d'une classe
       name.textContent = photographes[photographe].name; // ajout du contenu
       stockage[stockage.length - 1].appendChild(name); // ajout de l'élément à la div

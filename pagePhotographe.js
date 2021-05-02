@@ -20,7 +20,7 @@ let spanLike = document.getElementById('total-likes');
 let modal = document.getElementById('modalForm');
 let contact = document.getElementById('contactMe');
 let submit = document.querySelector('.submit-button');
-let closeForm = document.getElementById('closeForm');
+let closeForm = document.querySelector('.close');
 let contactForm = document.querySelector('.contactForm');
 let inputFirstName = document.getElementById('firstName');
 let inputLastName = document.getElementById('lastName');
@@ -31,7 +31,7 @@ let modalArtistName = document.querySelector('.photographer-nameModal');
 // ouverture et fermeture du formulaire / de la lightbox
 let cover = document.getElementById('cover');
 contact.onclick = () => {modal.style.display = "block"; cover.style.display="block";} 
-closeForm.onclick = () => {modal.style.display = "none";  cover.style.display="none"; }
+closeForm.onclick = (e) => {e.preventDefault(); modal.style.display = "none";  cover.style.display="none"; }
 closeLightbox.onclick = () => lightbox.style.display= "none";
 let contenu = document.createElement('img');
 let contenuDesc = document.createElement('span');

@@ -1,4 +1,5 @@
-body,html {
+body,
+html {
     font-family: "DM Sans", sans-serif; /* https://fonts.google.com/specimen/DM-Sans */
     background: #ffffff;
     color: #901c1c;
@@ -6,7 +7,7 @@ body,html {
     height: 100%;
 }
 
-h1 {
+h1,h2 {
     margin-block-start: 0;
     margin-block-end: 0;
     color: #d3573c;
@@ -144,9 +145,8 @@ figcaption {
     transition: 0.3s;
     font-size: 12px;
     font-weight: 500;
-
 }
-.header-tagWrapper > .tagButton{
+.header-tagWrapper > .tagButton {
     text-transform: capitalize;
 }
 .tagButton:hover {
@@ -163,6 +163,7 @@ figcaption {
     display: flex;
     flex-direction: column;
     padding: 4%;
+    padding-top: 2%;
     z-index: 2;
 }
 #contactTitle {
@@ -181,19 +182,24 @@ figcaption {
     z-index: 5;
     border-radius: 11px;
     padding: 1em;
-    display : none ;
+    display: none;
 }
 #yourMessage {
     height: 150px;
-    line-height: 1.5;    border-radius: 5px;
+    line-height: 1.5;
+    border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
 }
-#yourMessage:focus,#yourMessage:active,textarea {
+#yourMessage:focus,
+#yourMessage:active,
+textarea {
     border: none;
 }
-textarea{font-size: 24px;
-    letter-spacing: 1px;}
+textarea {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
 .submit-button {
     width: 170px;
     display: inline;
@@ -206,19 +212,28 @@ textarea{font-size: 24px;
     font-weight: 700;
     margin-bottom: 100px;
 }
-#cover{
+#cover {
     opacity: 0.6;
     background-color: #757575;
     z-index: 1;
     display: none;
-    position:fixed;
-    left:0;
-    top:0;
-    right:0;
-    bottom:0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     min-height: 100%;
 }
-
+.close {
+    background: url(closeIconWhite.svg) center center / 100% 100%;
+    width: 42px;
+    height: 42px;
+    border: none;
+    position: absolute;
+    right: 45px;
+    top: 45px;
+    z-index: 15;
+}
 .fa-times {
     position: absolute;
     left: 630px;
@@ -304,6 +319,7 @@ option {
 }
 option:hover {
     background-color: #db8876;
+    cursor: pointer;
 }
 option:focus {
     background-color: #db8876;
@@ -467,8 +483,22 @@ select {
     main {
         width: 375px;
     }
-    .main__header{
+    .main__header {
         margin: 0;
+        display: block;
+    }
+    .titre{
+        font-size: 14px;
+    }
+    #logo{
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+    h1 #logo{
+        width: 150px;
+    }
+    .header-tagWrapper{
+        width: 100%;
     }
     .photographie {
         width: 335px;
@@ -477,6 +507,7 @@ select {
     .photographer-header {
         background-color: #ffffff;
         padding: 0;
+        height: 200px;
     }
     .photographer-location,
     .photographer-tagline {
@@ -486,8 +517,11 @@ select {
     .photographer-name {
         font-size: 30px;
     }
-    .photographer-profile{
-        width : 70%;
+    .photographer-profile {
+        width: 70%;
+    }
+    figcaption {
+        font-size: 14px;
     }
     #contactMe {
         position: fixed;
@@ -506,6 +540,17 @@ select {
         width: 150px;
         height: 150px;
     }
+    .thumb-photographerPic {
+        position: absolute;
+        top: 7%;
+    }
+    .thumb-photographie {
+        width: 335px;
+        height: 190px;
+    }
+    #selector-wrapper {
+        display: none;
+    }
     #total {
         position: initial;
         width: 360px;
@@ -513,5 +558,39 @@ select {
         margin-top: 10px;
         margin-left: 10px;
     }
-
+    #modalForm {
+        width: 375px;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        height: auto;
+        z-index: 10;
+    }
+    .contactForm{
+        z-index: 10;
+    }
+    .submit-button{
+        margin-bottom : 75px;
+        margin-top : 20px;
+        width : 170px;
+        height: 35px;
+        place-self: center;
+    }
+    .close{
+        width: 25px;
+        height: 25px;
+        right: 25px;
+        top: 30px;
+    }
+    label {
+        font-size: 24px;
+    }
+    input {
+        width: 338px;
+        height: 50px;
+    }
+    #contactTitle,
+    .photographer-nameModal {
+        font-size: 36px;
+    }
 }
