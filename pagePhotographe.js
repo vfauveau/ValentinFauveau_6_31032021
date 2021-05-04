@@ -13,7 +13,7 @@ const closeLightbox = document.querySelector('.lightbox-close');
 const lightboxMedia = document.getElementById('lightbox-content');
 const prevButton = document.querySelector('.lightbox-prev');
 const nextButton = document.querySelector('.lightbox-next');
-let contenu = document.createElement('img'); 
+let contenu = document.createElement('img');
 let mediaTitle = document.createElement('span');
 // bottom-right-corner text-box
 let spanPrice = document.getElementById('total-photographer-price');
@@ -64,11 +64,12 @@ class imageFactory {
         let captionTitle = content.replace("Sample Photos/", " "); captionTitle = captionTitle.replace(".jpg", " "); captionTitle = captionTitle.replaceAll("_", " ");
         this._caption.textContent = captionTitle;
         this._el.setAttribute('alt', captionTitle);
-        this._el.onclick=() => {
-            lightbox.style.display="flex"
+        this._el.onclick = () => {
+            lightbox.style.display = "flex"
             contenu.src = this._el.src
             contenu.classList.add('active');
-            lightboxMedia.appendChild(contenu)}
+            lightboxMedia.appendChild(contenu)
+        }
     }
     showPrice(price) {
         let priceText = document.createElement('strong');
@@ -97,19 +98,18 @@ class videoFactory {
         this._caption = document.createElement('figcaption');
         this._el = document.createElement("video");
         this._el.classList.add('thumb-photographie');
-        this._el.appendChild(document.createElement("source"));
+        
         this.init(content)
     }
     init(content) {
-        this._el.children[0].src = content;
         this._el.src = "Sample Photos/" + content;
         let captionTitle = content.replace("Sample Photos/", " "); captionTitle = captionTitle.replaceAll("_", " "); captionTitle = captionTitle.replace(".mp4", "");
         this._fig.appendChild(this._el);
         this._fig.appendChild(this._caption).textContent = captionTitle;
         this._el.setAttribute('alt', "Video " + captionTitle);
-        this._el.onclick=() => {
-            lightbox.style.display="flex"
-            contenu.src = this._el.src ;
+        this._el.onclick = () => {
+            lightbox.style.display = "flex"
+            contenu.src = this._el.src;
             contenu.classList.add('active');
             lightboxMedia.appendChild(contenu);
         }
@@ -161,7 +161,8 @@ fetch(myRequest)
         }
         // filtre des medias correspondants à l'artiste
         var filteredMedias = medias.filter((item) => {
-            if (getId == item.photographerId) {return item}});
+            if (getId == item.photographerId) { return item }
+        });
         // renvoi des médias vers un array puis tri dans ordre décroissant de Popularité
         var filterDefault = [];
         filteredMedias.forEach(element => { filterDefault.push(element) });
@@ -175,6 +176,7 @@ fetch(myRequest)
                 elt.showLikes(element.likes);
             });
             lightbox();
+            btns();
         }
         // impression de la page défaut (= par Popularité)
         affichageMedias(filterDefault);
@@ -202,14 +204,14 @@ fetch(myRequest)
         // on écoute chaque media, si il y a un clic on récupère sa position dans le array.
         Cette position est utilisée pour passer d'un média/titre à un autre avec les boutons prev/next
         */
-        function lightbox () {
+        function lightbox() {
             let position = 0
             let mediaSrc = []
-            for(let i = 0 ; i < imgs.length ; i++){
+            for (let i = 0; i < imgs.length; i++) {
                 mediaSrc.push(imgs[i].src)
-                if(imgs[i].src.includes('.mp4')){contenu = document.createElement('video')} 
-                else{contenu = document.createElement('img')}
-                imgs[i].addEventListener('click', ()=>{
+                contenu = document.createElement('img');
+                if (imgs[i].src.includes('.mp4')) {contenu = document.createElement('video')}
+                imgs[i].addEventListener('click', () => {
                     position = i
                     mediaTitle.textContent = imgs[position].alt
                     lightboxMedia.appendChild(mediaTitle)
@@ -228,32 +230,33 @@ fetch(myRequest)
             }
             const moveLeft = () => {
                 if (position < 1) {
-                    position = mediaSrc.length - 1;
-                    contenu.src = mediaSrc[position];
+                    position = mediaSrc.length - 1
+                    contenu.src = mediaSrc[position]
                     mediaTitle.textContent = imgs[position].alt
-                    return;
+                    return
                 }
-                contenu.src = mediaSrc[position - 1];
-                mediaTitle.textContent = imgs[position - 1 ].alt
-                position--;
+                contenu.src = mediaSrc[position - 1]
+                mediaTitle.textContent = imgs[position - 1].alt
+                position--
             }
-            nextButton.addEventListener("click", moveRight);
-            prevButton.addEventListener("click", moveLeft);
+            nextButton.addEventListener("click", moveRight)
+            prevButton.addEventListener("click", moveLeft)
         }
-        
-        function btns () {
-            for(let i = 0 ; arrayBtnLikes.length > i ; i++){
-                arrayBtnLikes[i].addEventListener('click', function u() {
-                    els[i].textContent = parseInt(els[i].textContent) + 1 ;
+
+        // boutons like et ajout aux compteurs
+        function btns() {
+            for (let i = 0; arrayBtnLikes.length > i; i++) {
+                arrayBtnLikes[i].addEventListener('click', function yes() {
+                    this.removeEventListener('click', yes);
+                    els[i].textContent = parseInt(els[i].textContent) + 1;
                     let likesTotaux = els.map(el => el.textContent).reduce((a, b) => parseInt(a) + parseInt(b));
-                    spanLike.textContent = likesTotaux
+                    spanLike.textContent = likesTotaux;
                 })
-                arrayBtnLikes[i].removeEventListener('click' , function u (){})
             }
         }
+
         let likesTotaux = els.map(el => el.textContent).reduce((a, b) => parseInt(a) + parseInt(b));
         spanLike.textContent = likesTotaux
-        btns()
 
 
     }).catch(function (error) {
