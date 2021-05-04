@@ -19,6 +19,8 @@ fetch(myRequest)
       stockage.push(document.createElement("div"));
       stockage[stockage.length - 1].classList.add("photographe-wrapper");
       var lienImage = document.createElement('a');
+      lienImage.classList.add('photograph-link');
+      lienImage.setAttribute('tabindex', photographe+1)
       lienImage.addEventListener("click", () => {
         localStorage.setItem("idphot", photographes[photographe].id);
         location.href = "photographer-page.html"
@@ -52,12 +54,12 @@ fetch(myRequest)
       image.classList.add('thumb-photographer-picture');
       image.src = "Sample Photos/Photographers ID Photos/" + photographes[photographe].portrait;
       lienImage.appendChild(image);
-      stockage[stockage.length - 1].appendChild(lienImage);
-
       let name = document.createElement("h2"); // creation d'element HTML
       name.classList.add('thumb-photographer-name'); // ajout d'une classe
       name.textContent = photographes[photographe].name; // ajout du contenu
-      stockage[stockage.length - 1].appendChild(name); // ajout de l'élément à la div
+      lienImage.appendChild(name);
+      stockage[stockage.length - 1].appendChild(lienImage);
+
       // repeat
       let endroit = document.createElement("p");
       endroit.textContent = photographes[photographe].city + ", " + photographes[photographe].country;
