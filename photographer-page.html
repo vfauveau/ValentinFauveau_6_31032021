@@ -14,31 +14,31 @@
     <body>
     <div id="cover"></div>
         <header class="logo-header">
-            <a alt="Fisheye Home Page" class="logolink" href="index.html"><h1 id="logo2" aria-label="Logo FishEye"></h1></a>
+            <a alt="Fisheye Home Page" class="logolink" href="index.html"><h1 id="logo2" aria-label="Logo FishEye">Logo Fisheye</h1></a>
         </header>
         <main>
         <!-- lightbox-->
         <div class="lightbox">
-            <button class="lightbox-close" aria-label="fermer"></button>
-            <button class="lightbox-prev" ></button>
-            <div id="lightbox-content">
+            <button class="lightbox-close" aria-label="close dialog"></button>
+            <button class="lightbox-prev"  aria-label="Previous image"></button>
+            <div id="lightbox-content" aria-label="image closeup view">
             </div>
-            <button class="lightbox-next"></button>
+            <button class="lightbox-next" aria-label="Next Image"></button>
         </div>
         <!-- FIN lightbox-->
         <!-- Modal Formulaire-->
         <div id="modalForm">
             <form class='contactForm'>
-                <h1 id="contactTitle">Contactez-Moi<button class="close" aria-label="fermer" ></button></h1>
-                <h1 class="photographer-nameModal"></h1>
+                <button class="close" aria-label="close contactForm"></button>
+                <h1 id="photographer-nameModal"></h1>
                 <label for="firstName">Prénom</label>
-                <input name="firstName" id="firstName"type="text"></input>
+                <input name="firstName" id="firstName" aria-labelledby="firstName" type="text"></input>
                 <label for="lastName">Nom</label>
-                <input name="lastName" id="lastName" type="text"></input>
+                <input name="lastName" id="lastName" aria-labelledby="lastName" type="text"></input>
                 <label for="email">Email</label>
-                <input name="email" id="email" type="text"></input>
-                <label for="yourMessage">Votre message</label>
-                <textarea name="yourMessage" id="yourMessage" type="text"></textarea>
+                <input name="email" id="email" aria-labelledby="email" type="text"></input>
+                <label for="yourMessage" id="yourMessage">Votre message</label>
+                <textarea name="yourMessage" id="yourMessageTextbox" type="text" aria-labelledby="yourMessage"></textarea>
                 <input name="submit" type="submit" required class="submit-button" value="Envoyer"></input>
             </form>
         </div>
@@ -52,14 +52,14 @@
                     <br>
                     <span class="tagWrapper"></span>
                 </div>
-                <button id="contactMe" aria-label="Contact Me" class="cta">Contactez-Moi</button>
+                <button id="contactMe" aria-labelledby="photographer-nameModal" class="cta">Contactez-Moi</button>
                 <div id="user">
                     <img class="thumb-photographer-picture thumb-photographerPic"></img>
                 </div>
             </header>
             <span id="selector-wrapper">
                 <label id="selector-label">Trier par</label>
-                <select id="select" aria-label="trier par">
+                <select id="select" aria-labelledby="selector-label">
                     <option selected value="Popularité" >Popularité</option>
                     <option value="Date">Date</option>
                     <option value="Titre">Titre</option>

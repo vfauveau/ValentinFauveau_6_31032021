@@ -20,10 +20,28 @@ h2 {
 .main__header {
     margin-right: 0;
     margin-left: 24%;
+    line-height: 20px;
     align-items: flex-end;
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 10px;
+}
+#linkMain {
+    display: none;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 45%;
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 182px;
+    height: 30px;
+    color: black;
+    background-color: #db8876;
+    font-weight: 500;
+    line-height: 30px;
+    font-size: 18px;
+    text-align: center;
+    padding: 0.5rem;
 }
 .header-tagWrapper {
     order: -1;
@@ -53,7 +71,7 @@ label {
 }
 article {
     display: flex;
-    margin-top: 10px;
+    margin-top: 50px;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
@@ -62,13 +80,19 @@ figure {
     margin: 1% 4%;
 }
 figcaption {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 500;
     font-family: "DM Sans", sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 350px;
+}
+figcaption p {
+    width: 240px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .likeButton {
     margin: 5px;
@@ -87,6 +111,7 @@ figcaption {
     width: 200px;
     height: 50px;
     background: url(logo.svg) center center / 100% 100%;
+    font-size: 0;
 }
 #logo2 {
     font-size: 3rem;
@@ -97,6 +122,7 @@ figcaption {
     width: 200px;
     height: 50px;
     background: url(logo.svg);
+    font-size: 0;
 }
 .photographe-wrapper {
     display: flex;
@@ -185,12 +211,6 @@ figcaption {
     padding-top: 2%;
     z-index: 2;
 }
-#contactTitle {
-    font-size: 64px;
-    color: black;
-    font-weight: 400;
-}
-
 #modalForm {
     width: 670px;
     height: 900px;
@@ -203,15 +223,15 @@ figcaption {
     padding: 1em;
     display: none;
 }
-#yourMessage {
+#yourMessageTextbox {
     height: 150px;
     line-height: 1.5;
     border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
 }
-#yourMessage:focus,
-#yourMessage:active,
+#yourMessageTextbox:focus,
+#yourMessageTextbox:active,
 textarea {
     border: none;
 }
@@ -320,8 +340,9 @@ textarea {
     align-items: center;
 }
 
-/* classe à attribuer aux éléments photos à afficher sur les pages des photographes */
-.thumb-photographie {
+/* classe à attribuer aux éléments photos et videos à afficher sur les pages des photographes */
+.thumb-photographie,
+.thumb-video {
     height: 300px;
     width: 350px;
     border-radius: 5px;
@@ -332,26 +353,29 @@ textarea {
 option {
     color: white;
     background-color: #901c1c;
-    border-top: 1px solid white;
     padding: 1em;
 }
 option:hover {
     background-color: #db8876;
     cursor: pointer;
+    border-top: 1px solid white;
 }
 option:focus {
     background-color: #db8876;
+    border-top: 1px solid white;
 }
 select {
     color: white;
     background-color: #901c1c;
     border-top: 1px solid white;
     padding: 1.2em;
-    font-family: "Roboto";
     font-size: 18px;
     font-weight: 700;
     border-radius: 5px;
     margin-top: 15px;
+}
+select:focus {
+    outline: none;
 }
 #selector-wrapper {
     display: inline;
@@ -393,10 +417,11 @@ select {
     margin-bottom: 14px;
     color: #525252;
 }
-.photographer-nameModal {
+#photographer-nameModal {
     font-size: 64px;
     color: black;
     font-weight: 400;
+    overflow-wrap: normal;
 }
 /* Lightbox */
 .lightbox {
@@ -409,7 +434,6 @@ select {
     background-color: rgb(255, 255, 255);
 }
 #lightbox-content {
-    position: center;
     background-color: #ffffff;
     margin: auto;
     padding: 0;
@@ -421,7 +445,7 @@ select {
     z-index: 12;
 }
 #lightbox-content span {
-    font-size : 24px
+    font-size: 24px;
 }
 #lightbox img,
 #lightbox video {
@@ -478,6 +502,7 @@ select {
     max-width: 1050px;
     align-self: center;
     margin-top: -50px;
+    object-fit: cover;
 }
 /* The Close Button */
 #closeLightbox {
@@ -497,7 +522,9 @@ select {
     .photographe-wrapper {
         width: 450px;
     }
-    #logo{margin-left : 150px}
+    #logo {
+        margin-left: 150px;
+    }
 }
 @media (min-width: 360px) and (max-width: 666px) {
     body {
@@ -513,7 +540,7 @@ select {
     .titre {
         font-size: 14px;
         position: absolute;
-        top : 4%;
+        top: 4%;
         right: 4%;
     }
     #logo {
@@ -534,9 +561,9 @@ select {
         align-items: center;
         flex-wrap: wrap;
     }
-    .tagWrapper{
-        max-width: 200px ;
-        flex-wrap : wrap;
+    .tagWrapper {
+        max-width: 200px;
+        flex-wrap: wrap;
     }
     .photographie {
         width: 335px;
@@ -565,6 +592,9 @@ select {
     .profile-tagButton {
         font-size: 13px;
         margin-bottom: 5px;
+    }
+    .tagButton {
+        margin: 3px;
     }
     figure {
         margin: 2% 5%;
@@ -602,9 +632,10 @@ select {
         height: 150px;
         position: absolute;
         top: 16%;
-        right: 10px;
+        right: 8%;
     }
-    .thumb-photographie {
+    .thumb-photographie,
+    .thumb-video {
         width: 335px;
         height: 190px;
     }
@@ -649,8 +680,8 @@ select {
         width: 338px;
         height: 50px;
     }
-    #contactTitle,
-    .photographer-nameModal {
+
+    #photographer-nameModal {
         font-size: 36px;
     }
 
