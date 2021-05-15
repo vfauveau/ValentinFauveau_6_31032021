@@ -69,7 +69,7 @@ fetch(myRequest)
         btn.classList.add("tagButton");
         btn.textContent = "#" + photographes[photographe].tags[tag];
         btn.setAttribute("aria-label", "tag")
-            // filtre et liens vers photographes taggés
+        // filtre et liens vers photographes taggés
         btn.addEventListener("click", () => {
           for (let x = 0; x < stockage.length; x++) {
             stockage[x].style.display = "flex";
@@ -90,7 +90,6 @@ fetch(myRequest)
     //SORTIE DE BOUCLE (photographe in photographes)
     // Filtre du caractères unique des tags, afin de ne pas créér des tags similaires dans la barre de navigation
     var unique = arrayTag.filter(onlyUnique);
-    // gestion et création des boutons de tags
     let tagWrapper = document.querySelector(".header-tagWrapper")
     // filtre et liens vers photographes taggés
     for (let element of unique) {
@@ -110,22 +109,24 @@ fetch(myRequest)
           }
         }
       })
-    // Remplissage du nav-header par le span contenant les boutons tags
+      // Remplissage du nav-header par le span contenant les boutons tags
       header.appendChild(tagWrapper);
     }
+    // listener sur tous les boutons pour déclencher l'apparition du bouton "passer au contenu"
     let allBoutons = document.getElementsByTagName("button");
-    for(let i in allBoutons){
-    allBoutons[i].addEventListener('click', () => {
-      redirectLink.style.display = "block"
-    })
+    for (let i of allBoutons) {
+      i.addEventListener("click", () => {
+        redirectLink.style.display = "block"
+      })
 
-    redirectLink.onclick=()=>{
-      for(let i in stockage){
-      stockage[i].style.display = "flex";
+      //gestion du bouton "passer au contenu"
+      redirectLink.onclick = () => {
+        for (let i in stockage) {
+          stockage[i].style.display = "flex";
+        }
+        redirectLink.style.display = "none";
+      }
     }
-    redirectLink.style.display = "none"
-  }
-}
   }).catch(function (error) {
     console.error("erreur");
     console.error(error);

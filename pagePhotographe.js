@@ -27,16 +27,15 @@ let contactForm = document.querySelector(".contactForm");
 let inputFirstName = document.getElementById("firstName");
 let inputLastName = document.getElementById("lastName");
 let inputEmail = document.getElementById("email");
-let submitButton =document.getElementById("submit-button");
+let submitButton = document.getElementById("submit-button");
 let inputYourMessage = document.getElementById("yourMessageTextbox");
 let modalArtistName = document.getElementById("photographer-nameModal");
 
 // ouverture et fermeture du formulaire / de la lightbox / de la div grise qui recouvre la page
 contact.onclick = () => {
     modal.style.display = "block";
-    modal.focus();
+    inputFirstName.focus();
     cover.style.display = "block";
-
 }
 closeForm.onclick = (e) => {
     e.preventDefault();
@@ -49,7 +48,7 @@ let mediasThumb = [];
 // envoi du formulaire
 contactForm.onsubmit = () => {
     console.log(inputFirstName.value, inputLastName.value, inputEmail.value, inputYourMessage.value);
-    submitButton.style.display= "none"
+    submitButton.style.display = "none"
 }
 // factory qui recoit un type d'élément et qui créé un objet en fonction
 class factory {
@@ -135,7 +134,7 @@ class videoFactory {
         this._caption.appendChild(this._captionTitle)
         let captionTitle = content.replace("Sample Photos/", " "); captionTitle = captionTitle.replace(".mp4", " "); captionTitle = captionTitle.replaceAll("_", " ");
         this._captionTitle.textContent = captionTitle;
-        this._el.setAttribute("alt", captionTitle);
+        this._el.setAttribute("title", captionTitle);
     }
     showPrice(price) {
         let priceText = document.createElement("strong");
@@ -164,7 +163,8 @@ class videoFactory {
         mediasThumb.push(this._el)
         let boxContent = document.createElement("video")
         boxContent.src = this._el.src
-        boxContent.setAttribute("alt", this._captionTitle.textContent)
+        boxContent.setAttribute("title", this._captionTitle.textContent)
+        boxContent.setAttribute("controls", "");
         contenu.push(boxContent)
     }
 }
@@ -233,24 +233,21 @@ fetch(myRequest)
                 affichageMedias(alphabetic)
             }
         }
-
-        /*  contenu est le média affiché dans la lightbox
-        on écoute chaque miniature de média, si il y a un clic on récupère sa position dans le array et l'affiche dans la lightbox
-        Cette position est utilisée pour passer d"un média/titre à un autre avec les boutons prev/next.
-        ajout des fonctions sur les évènements au clavier.
-
-        contenu = media affiché dans la lightbox.
-        position = position dans le array de média.
-
-        Pour chaque média et évènement on applique la fonction qui vide la lightbox, puis on append le media en fonction de l'évolution de la position
-        */
-
         // fonction qui supprime le 1st child de la lightbox
-        function emptyLightbox () {
+        function emptyLightbox() {
             while (lightboxMedia.firstChild) {
                 lightboxMedia.removeChild(lightboxMedia.firstChild)
             }
         }
+        /*
+        on écoute chaque miniature de média, si il y a un clic on récupère sa position dans le array et l'affiche dans la lightbox
+        Cette position est utilisée pour passer d"un média/titre à un autre avec les boutons prev/next.
+        ajout des fonctions sur les évènements au clavier.
+        contenu = media affiché dans la lightbox.
+        position = position dans le array de média.
+
+        Pour chaque média et évènement on appelle la fonction qui vide la lightbox, puis on append le media en fonction de l'évolution de la position.
+        */
         function lightbox() {
             let position = 0
             for (let i = 0; i < mediasThumb.length; i++) {
@@ -259,7 +256,7 @@ fetch(myRequest)
                 mediasThumb[i].addEventListener("click", () => {
                     lightboxP.style.display = "flex";
                     position = i;
-                    mediaTitle.textContent = contenu[position].alt
+                    mediaTitle.textContent = contenu[position].alt || contenu[position].title
                     // titre de l'image = alt de celle-ci
                     emptyLightbox();
                     lightboxMedia.appendChild(contenu[position])
@@ -272,12 +269,12 @@ fetch(myRequest)
                     position = 0;
                     emptyLightbox();
                     lightboxMedia.appendChild(contenu[position])
-                    mediaTitle.textContent = contenu[position].alt
+                    mediaTitle.textContent = contenu[position].alt || contenu[position].title
                     return;
                 }
                 emptyLightbox();
                 lightboxMedia.appendChild(contenu[position + 1])
-                mediaTitle.textContent = contenu[position + 1].alt
+                mediaTitle.textContent = contenu[position + 1].alt || contenu[position + 1].title
                 position++;
             }
             const moveLeft = () => {
@@ -285,12 +282,12 @@ fetch(myRequest)
                     emptyLightbox();
                     position = contenu.length - 1
                     lightboxMedia.appendChild(contenu[position])
-                    mediaTitle.textContent = contenu[position].alt
+                    mediaTitle.textContent = contenu[position].alt || contenu[position].title
                     return
                 }
                 emptyLightbox();
-                lightboxMedia.appendChild(contenu[position-1])
-                mediaTitle.textContent = contenu[position - 1].alt
+                lightboxMedia.appendChild(contenu[position - 1])
+                mediaTitle.textContent = contenu[position - 1].alt || contenu[position - 1].title
                 position--
             }
             function logKey(e) {
@@ -304,7 +301,7 @@ fetch(myRequest)
                     case "Escape":
                         lightboxP.style.display = "none"
                         cover.style.display = "none"
-                        modal.style.display ="none"
+                        modal.style.display = "none"
                         break;
                 }
             }
@@ -321,4 +318,3 @@ fetch(myRequest)
         console.error("erreur");
         console.error(error);
     });
-
