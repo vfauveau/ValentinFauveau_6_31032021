@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style/style.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/0a01dc4da7.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -18,7 +18,7 @@
         </header>
         <main>
         <!-- lightbox-->
-        <div class="lightbox">
+        <div class="lightbox" role="dialog" aria-modal="true" aria-label="lightbox" tabindex="-1">
             <button class="lightbox-close" aria-label="close dialog"></button>
             <button class="lightbox-prev"  aria-label="Previous image"></button>
             <div id="lightbox-content" aria-label="image closeup view">
@@ -27,7 +27,7 @@
         </div>
         <!-- FIN lightbox-->
         <!-- Modal Formulaire-->
-        <div id="modalForm">
+        <div id="modalForm" role="dialog" aria-modal="true" aria-labelledby="photographer-nameModal" tabindex="-1" >
             <form class='contactForm'>
                 <button class="close" aria-label="close contactForm"></button>
                 <h1 id="photographer-nameModal"></h1>
@@ -39,13 +39,13 @@
                 <input name="email" id="email" aria-labelledby="email" type="text"></input>
                 <label for="yourMessage" id="yourMessage">Votre message</label>
                 <textarea name="yourMessage" id="yourMessageTextbox" type="text" aria-labelledby="yourMessage"></textarea>
-                <input name="submit" type="submit" required class="submit-button" value="Envoyer"></input>
+                <input name="submit" type="submit" required id="submit-button" value="Envoyer"></input>
             </form>
         </div>
         <!-- FIN Modal Formulaire-->
-            <header class="photographer-header">
+            <header class="photographer-header" role="document">
                 <div class="photographer-profile">
-                    <h1 class="photographer-name"></h1> <br>
+                    <h1 class="photographer-name"></h1><br>
                     <p class="photographer-location"></p>
                     <br>
                     <p class="photographer-tagline"></p>
@@ -57,6 +57,7 @@
                     <img class="thumb-photographer-picture thumb-photographerPic"></img>
                 </div>
             </header>
+            <!-- Selecteur -->
             <span id="selector-wrapper">
                 <label id="selector-label">Trier par</label>
                 <select id="select" aria-labelledby="selector-label">

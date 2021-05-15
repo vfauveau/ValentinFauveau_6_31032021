@@ -13,9 +13,10 @@ const closeLightbox = document.querySelector(".lightbox-close");
 const lightboxMedia = document.getElementById("lightbox-content");
 const prevButton = document.querySelector(".lightbox-prev");
 const nextButton = document.querySelector(".lightbox-next");
-let contenu ;
+let contenu = [];
 let mediaTitle = document.createElement("span");
-// bottom-right-corner text-box
+let cover = document.getElementById("cover");
+// boite de texte au bas-droit de l'écran
 let spanPrice = document.getElementById("total-photographer-price");
 let spanLike = document.getElementById("total-likes");
 //formulaire DOM
@@ -26,14 +27,16 @@ let contactForm = document.querySelector(".contactForm");
 let inputFirstName = document.getElementById("firstName");
 let inputLastName = document.getElementById("lastName");
 let inputEmail = document.getElementById("email");
+let submitButton =document.getElementById("submit-button");
 let inputYourMessage = document.getElementById("yourMessageTextbox");
 let modalArtistName = document.getElementById("photographer-nameModal");
 
-// ouverture et fermeture du formulaire / de la lightbox
-let cover = document.getElementById("cover");
+// ouverture et fermeture du formulaire / de la lightbox / de la div grise qui recouvre la page
 contact.onclick = () => {
     modal.style.display = "block";
+    modal.focus();
     cover.style.display = "block";
+
 }
 closeForm.onclick = (e) => {
     e.preventDefault();
@@ -41,19 +44,30 @@ closeForm.onclick = (e) => {
     cover.style.display = "none";
 }
 closeLightbox.onclick = () => lightboxP.style.display = "none";
-let imgs = document.getElementsByClassName("thumb-photographie");
 let els = [];
-
+let mediasThumb = [];
 // envoi du formulaire
-contactForm.onsubmit = () => console.log(inputFirstName.value, inputLastName.value, inputEmail.value, inputYourMessage.value);
-
+contactForm.onsubmit = () => {
+    console.log(inputFirstName.value, inputLastName.value, inputEmail.value, inputYourMessage.value);
+    submitButton.style.display= "none"
+}
+// factory qui recoit un type d'élément et qui créé un objet en fonction
 class factory {
     static create(type = {}) {
         if (type.image) return new imageFactory(type.image);
         if (type.video) return new videoFactory(type.video);
     }
 }
+/*
+    factory comprenant un constructor avec une figure composée d'une figcaption, d'un paragraphe et d'une image.
+    init est déclarée dans la factory puis appelée au sein du constructor, les éléments sont append entre entre eux.
+    De même que le contenu de la légende de l'image est défini, en écourtant le chemin de l'image et en remplaçant les charactères en trop.
 
+    showPrice et showlikes servent à ajouter les prix et likes dans la figcaption.
+
+    showLikes créé des boutons et des éléments strong contenant le nombre de likes du média
+    les boutons contiennent un event listener qui incrémente le nombre de likes de l'objet et le nombre de total de likes affiché sur la page, l'écouteur est retiré quand il a été activé.
+ */
 class imageFactory {
     constructor(content) {
         this._fig = document.createElement("figure");
@@ -71,6 +85,7 @@ class imageFactory {
         let captionTitle = content.replace("Sample Photos/", " "); captionTitle = captionTitle.replace(".jpg", " "); captionTitle = captionTitle.replaceAll("_", " ");
         this._captionTitle.textContent = captionTitle;
         this._el.setAttribute("alt", captionTitle);
+        this._el.setAttribute("tabindex", "0");
     }
     showPrice(price) {
         let priceText = document.createElement("strong");
@@ -94,6 +109,11 @@ class imageFactory {
         els.push(likesText);
     }
     affich() {
+        let boxContent = document.createElement("img");
+        boxContent.src = this._el.src;
+        boxContent.setAttribute("alt", this._captionTitle.textContent)
+        contenu.push(boxContent);
+        mediasThumb.push(this._el);
         mediaContainer.appendChild(this._fig);
     }
 }
@@ -104,6 +124,7 @@ class videoFactory {
         this._caption = document.createElement("figcaption");
         this._captionTitle = document.createElement("p");
         this._el = document.createElement("video");
+        this._el.setAttribute("controls", "")
         this._el.classList.add("thumb-video");
         this.init(content)
     }
@@ -115,9 +136,6 @@ class videoFactory {
         let captionTitle = content.replace("Sample Photos/", " "); captionTitle = captionTitle.replace(".mp4", " "); captionTitle = captionTitle.replaceAll("_", " ");
         this._captionTitle.textContent = captionTitle;
         this._el.setAttribute("alt", captionTitle);
-    }
-    affich() {
-        mediaContainer.appendChild(this._fig);
     }
     showPrice(price) {
         let priceText = document.createElement("strong");
@@ -141,8 +159,17 @@ class videoFactory {
         this._caption.appendChild(likeButton);
         els.push(likesText);
     }
+    affich() {
+        mediaContainer.appendChild(this._fig)
+        mediasThumb.push(this._el)
+        let boxContent = document.createElement("video")
+        boxContent.src = this._el.src
+        boxContent.setAttribute("alt", this._captionTitle.textContent)
+        contenu.push(boxContent)
+    }
 }
 
+// mediasThumb = éléments affiché sur la page, possèdant un event listener click pour ouvrir la lightbox
 const myRequest = new Request("data.json")
 fetch(myRequest)
     .then((response) => {
@@ -151,11 +178,11 @@ fetch(myRequest)
         // récupération des arrays from .json
         const photographes = data.photographers;
         const medias = data.media;
-        // remplissage des zones de texte statique en fonction de la valeur (ID) reçue en localStorage
+        // remplissage des zones de texte définie en HTML en fonction de la valeur (ID) reçue en localStorage
         for (let photographe in photographes) {
             if (getId == photographes[photographe].id) {
                 nameTitle.textContent = photographes[photographe].name;
-                modalArtistName.textContent = "Contactez-moi " +photographes[photographe].name;
+                modalArtistName.textContent = "Contactez-moi " + photographes[photographe].name;
                 endroit.textContent = photographes[photographe].city + ", " + photographes[photographe].country;
                 tagline.textContent = photographes[photographe].tagline;
                 imageProfil.src = "Sample Photos/Photographers ID Photos/" + photographes[photographe].portrait; imageProfil.setAttribute("alt", photographes[photographe].name);
@@ -186,7 +213,7 @@ fetch(myRequest)
             });
             lightbox();
         }
-        // impression de la page défaut (= par Popularité)
+        // impression de la page défaut (= par Popularité).
         affichageMedias(filterDefault);
         // Détection de changement de selection et affichage en fonction de la valeur.
         select.onchange = () => {
@@ -201,58 +228,69 @@ fetch(myRequest)
                 affichageMedias(filterByDate)
             }
             if (select.value === "Titre") {
-                let alphabetic = filteredMedias.reverse()
+                let alphabetic = filteredMedias.sort()
+                alphabetic.reverse()
                 affichageMedias(alphabetic)
             }
         }
 
-        /* mediaSrc est un array qui contient les diverses sources des medias utilisés dans la lightbox
-        // on écoute chaque media, si il y a un clic on récupère sa position dans le array.
-        Cette position est utilisée pour passer d"un média/titre à un autre avec les boutons prev/next
+        /*  contenu est le média affiché dans la lightbox
+        on écoute chaque miniature de média, si il y a un clic on récupère sa position dans le array et l'affiche dans la lightbox
+        Cette position est utilisée pour passer d"un média/titre à un autre avec les boutons prev/next.
+        ajout des fonctions sur les évènements au clavier.
+
+        contenu = media affiché dans la lightbox.
+        position = position dans le array de média.
+
+        Pour chaque média et évènement on applique la fonction qui vide la lightbox, puis on append le media en fonction de l'évolution de la position
         */
+
+        // fonction qui supprime le 1st child de la lightbox
+        function emptyLightbox () {
+            while (lightboxMedia.firstChild) {
+                lightboxMedia.removeChild(lightboxMedia.firstChild)
+            }
+        }
         function lightbox() {
             let position = 0
-            let mediaSrc = []
-            for (let i = 0; i < imgs.length; i++) {
-                mediaSrc.push(imgs[i].src)
-                imgs[i].addEventListener("click", () => {
+            for (let i = 0; i < mediasThumb.length; i++) {
+                // on donne la classe active à tous les éléments contenus dans le array
+                contenu[i].classList.add("active");
+                mediasThumb[i].addEventListener("click", () => {
                     lightboxP.style.display = "flex";
-                    contenu = document.createElement("img");
-                    contenu.src = mediaSrc[i];
-                    contenu.alt = imgs[position].alt
-                    position = i ; 
-                    contenu.classList.add("active")
-                    mediaTitle.style.textAlign="center"
-                    mediaTitle.textContent = imgs[position].alt // titre de l'image = alt de celle-ci
-                    // boucle pour empecher la multiplication d'élément HTML en cas de fermeture puis réouverture de la lightbox
-                    while(lightboxMedia.firstChild){
-                        lightboxMedia.removeChild(lightboxMedia.firstChild)
-                    }
-                    lightboxMedia.appendChild(contenu)
-                    lightboxMedia.appendChild(mediaTitle)
+                    position = i;
+                    mediaTitle.textContent = contenu[position].alt
+                    // titre de l'image = alt de celle-ci
+                    emptyLightbox();
+                    lightboxMedia.appendChild(contenu[position])
+                    lightboxP.appendChild(mediaTitle)
+
                 })
             }
             const moveRight = () => {
-
-                if (position >= mediaSrc.length - 1) {
-                    position = 0 ;
-                    contenu.src = mediaSrc[position];
-                    mediaTitle.textContent = imgs[position].alt
+                if (position >= contenu.length - 1) {
+                    position = 0;
+                    emptyLightbox();
+                    lightboxMedia.appendChild(contenu[position])
+                    mediaTitle.textContent = contenu[position].alt
                     return;
                 }
-                contenu.src = mediaSrc[position + 1];
-                mediaTitle.textContent = imgs[position + 1].alt
+                emptyLightbox();
+                lightboxMedia.appendChild(contenu[position + 1])
+                mediaTitle.textContent = contenu[position + 1].alt
                 position++;
             }
             const moveLeft = () => {
                 if (position < 1) {
-                    position = mediaSrc.length - 1
-                    contenu.src = mediaSrc[position]
-                    mediaTitle.textContent = imgs[position].alt
+                    emptyLightbox();
+                    position = contenu.length - 1
+                    lightboxMedia.appendChild(contenu[position])
+                    mediaTitle.textContent = contenu[position].alt
                     return
                 }
-                contenu.src = mediaSrc[position - 1]
-                mediaTitle.textContent = imgs[position - 1].alt
+                emptyLightbox();
+                lightboxMedia.appendChild(contenu[position-1])
+                mediaTitle.textContent = contenu[position - 1].alt
                 position--
             }
             function logKey(e) {
@@ -263,12 +301,14 @@ fetch(myRequest)
                     case "ArrowRight":
                         moveRight();
                         break;
-                    case "Escape" :
-                        lightboxP.style.display="none"
+                    case "Escape":
+                        lightboxP.style.display = "none"
+                        cover.style.display = "none"
+                        modal.style.display ="none"
                         break;
                 }
             }
-            // listener click & keydown qui utilise les fonctions moveLeft et moveRight en fonction
+            // listener click & keydown qui utilise les fonctions moveLeft et moveRight en fonction de la touche appuyée
             nextButton.addEventListener("click", moveRight);
             prevButton.addEventListener("click", moveLeft);
             document.onkeydown = logKey;
@@ -281,3 +321,4 @@ fetch(myRequest)
         console.error("erreur");
         console.error(error);
     });
+

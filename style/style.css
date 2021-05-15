@@ -1,6 +1,6 @@
 body,
 html {
-    font-family: "DM Sans", sans-serif; /* https://fonts.google.com/specimen/DM-Sans */
+    font-family: 'DM Sans', sans-serif; /* https://fonts.google.com/specimen/DM-Sans */
     background: #ffffff;
     color: #901c1c;
     font-weight: 400;
@@ -89,7 +89,7 @@ figcaption {
     max-width: 350px;
 }
 figcaption p {
-    width: 240px;
+    width: 230px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -103,10 +103,9 @@ figcaption p {
     background: url(heart.svg) center center / 100% 100%;
 }
 #logo {
-    font-size: 3rem;
     color: #901c1c;
-    margin-top: 3%;
-    margin-left: 220px;
+    margin-top: 2%;
+    margin-left: 12%;
     margin-bottom: -40px;
     width: 200px;
     height: 50px;
@@ -222,6 +221,7 @@ figcaption p {
     border-radius: 11px;
     padding: 1em;
     display: none;
+    border: 1px solid;
 }
 #yourMessageTextbox {
     height: 150px;
@@ -239,7 +239,7 @@ textarea {
     font-size: 24px;
     letter-spacing: 1px;
 }
-.submit-button {
+#submit-button {
     width: 170px;
     display: inline;
     background: #911c1c;
@@ -315,7 +315,6 @@ textarea {
     display: inline;
     transition: 0.4s;
     cursor: pointer;
-    font-family: "Roboto";
     font-weight: 700;
     font-size: 20px;
     border-radius: 5px;
@@ -349,7 +348,10 @@ textarea {
     object-fit: cover;
     cursor: pointer;
 }
-
+.thumb-photographie:focus,
+.thumb-video:focus{
+    outline: #000000 2px solid;
+}
 option {
     color: white;
     background-color: #901c1c;
@@ -375,8 +377,9 @@ select {
     margin-top: 15px;
 }
 select:focus {
-    outline: none;
+    outline: 2px solid #000000;
 }
+
 #selector-wrapper {
     display: inline;
     margin-left: 100px;
@@ -422,6 +425,7 @@ select:focus {
     color: black;
     font-weight: 400;
     overflow-wrap: normal;
+    width: 90%;
 }
 /* Lightbox */
 .lightbox {
@@ -432,25 +436,30 @@ select:focus {
     top: 0;
     width: 100%;
     background-color: rgb(255, 255, 255);
+    justify-content: center;
 }
 #lightbox-content {
     background-color: #ffffff;
     margin: auto;
-    padding: 0;
+    padding: 1.5em;
     width: 1250px;
     height: 1000px;
+    z-index: 12;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    z-index: 12;
 }
-#lightbox-content span {
+.lightbox span {
     font-size: 24px;
+    position: inherit;
+    bottom: 2.5%;
+    z-index: 25;
+    text-align: center;
+    
 }
 #lightbox img,
 #lightbox video {
     max-width: 1050px;
-    max-height: 900px;
+    max-height: 850px;
     align-self: center;
     padding: 4px;
     border: 2px solid white;
@@ -501,8 +510,8 @@ select:focus {
     max-height: 850px;
     max-width: 1050px;
     align-self: center;
-    margin-top: -50px;
     object-fit: cover;
+    margin-top: -100px;
 }
 /* The Close Button */
 #closeLightbox {
@@ -525,13 +534,18 @@ select:focus {
     #logo {
         margin-left: 150px;
     }
+    .active{
+        max-height: 800px;
+        margin-top: 0;
+        align-self: auto;
+    }
 }
 @media (min-width: 360px) and (max-width: 666px) {
     body {
         margin: 0;
     }
     main {
-        width: 375px;
+        width: auto;
     }
     .main__header {
         margin: 0;
@@ -598,6 +612,7 @@ select:focus {
     }
     figure {
         margin: 2% 5%;
+        width: 90%;
     }
     figcaption {
         margin-top: 5px;
@@ -606,9 +621,6 @@ select:focus {
     .likeButton {
         width: 12px;
         height: 12px;
-    }
-    #mediaContainer {
-        margin-top: 0;
     }
     #contactMe {
         position: fixed;
@@ -636,18 +648,19 @@ select:focus {
     }
     .thumb-photographie,
     .thumb-video {
-        width: 335px;
+        width: 100%;
         height: 190px;
     }
     #selector-wrapper {
         display: none;
     }
     #total {
-        position: initial;
-        width: 360px;
         align-self: center;
-        margin-top: 10px;
-        margin-left: 10px;
+        position: static;
+        bottom: 0;
+        margin: auto;
+        margin-top: 25px;
+        margin-bottom: 0;
     }
     #modalForm {
         width: 375px;
@@ -660,7 +673,7 @@ select:focus {
     .contactForm {
         z-index: 10;
     }
-    .submit-button {
+    #submit-button {
         margin-bottom: 75px;
         margin-top: 20px;
         width: 170px;

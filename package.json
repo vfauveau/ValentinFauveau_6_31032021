@@ -1,0 +1,22 @@
+{
+  "name": "valentinfauveau_6_31032021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Home.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vfauveau/ValentinFauveau_6_31032021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vfauveau/ValentinFauveau_6_31032021/issues"
+  },
+  "homepage": "https://github.com/vfauveau/ValentinFauveau_6_31032021#readme",
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  }
+}
