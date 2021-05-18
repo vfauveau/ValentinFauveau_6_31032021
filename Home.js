@@ -31,6 +31,12 @@ fetch(myRequest)
         localStorage.setItem("idphot", photographes[photographe].id);
         location.href = "photographer-page.html"
       });
+      lienImage.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13){
+        localStorage.setItem("idphot", photographes[photographe].id);
+        location.href = "photographer-page.html"
+        }})
       // écouteur d"évenement clique sur le lien contenant l"image ;
       // envoi la valeur de l"id correspondant au photographe selectionné dans le localstorage
       let image = document.createElement("img");

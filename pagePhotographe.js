@@ -202,7 +202,7 @@ fetch(myRequest)
         // renvoi des médias vers un array puis tri dans ordre décroissant de Popularité
         var filterDefault = [];
         filteredMedias.forEach(element => { filterDefault.push(element) });
-        filterDefault.sort(function (a, b) { return b.likes - a.likes });
+        filterDefault.sort(function (a, b) {return b.likes - a.likes });
         /* fonction qui vérifie les éléments contenus dans les tableaux et les transmets à la factory pour qu"elle créé des éléments correspondants au type */
         function affichageMedias(array) {
             array.forEach(element => {
