@@ -515,7 +515,7 @@ select:focus {
     max-width: 1050px;
     align-self: center;
     object-fit: cover;
-    margin-top: -100px;
+    margin-top: -15px;
 }
 /* The Close Button */
 #closeLightbox {
