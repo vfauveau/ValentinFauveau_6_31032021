@@ -546,7 +546,10 @@ select:focus {
     #user {
         width: auto;
     }
-
+    .active {
+        max-height: 800px;
+        align-self: auto;
+    }
 }
 @media (min-width : 1200px){
     #total{
@@ -555,6 +558,8 @@ select:focus {
     }
     .active{
         width: 100%;
+        max-height: 800px;
+        align-self: auto;
     }
     .lightbox{
         flex-direction: column;
