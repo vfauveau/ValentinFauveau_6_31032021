@@ -448,7 +448,7 @@ select:focus {
     margin: auto;
     padding: 1.5em;
     width: 1250px;
-
+    height: 100%;
     z-index: 12;
     display: flex;
     justify-content: center;
@@ -511,11 +511,11 @@ select:focus {
     opacity: 1;
 }
 .active {
-    max-height: 850px;
+    max-height: 750px;
     max-width: 1050px;
     align-self: center;
     object-fit: cover;
-    margin-top: -200px;
+    margin-top: -100px;
 }
 /* The Close Button */
 #closeLightbox {
