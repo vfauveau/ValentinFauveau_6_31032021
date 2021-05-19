@@ -188,7 +188,7 @@ fetch(myRequest)
                 imageProfil.src = "Sample Photos/Photographers ID Photos/" + photographes[photographe].portrait; imageProfil.setAttribute("alt", photographes[photographe].name);
                 spanPrice.textContent = photographes[photographe].price + "€ / Jour";
                 for (let tag of photographes[photographe].tags) {
-                    let el = document.createElement("button");
+                    let el = document.createElement("span");
                     el.textContent = "#" + tag;
                     el.classList.add("tagButton"); el.classList.add("profile-tagButton");
                     tagWrapper.appendChild(el);

@@ -71,7 +71,7 @@ fetch(myRequest)
       stockage[stockage.length - 1].appendChild(wrapper);
 
       for (let tag in photographes[photographe].tags) {
-        let btn = document.createElement("button");
+        let btn = document.createElement("span");
         btn.classList.add("tagButton");
         btn.textContent = "#" + photographes[photographe].tags[tag];
         btn.setAttribute("aria-label", "tag")
@@ -99,7 +99,7 @@ fetch(myRequest)
     let tagWrapper = document.querySelector(".header-tagWrapper")
     // filtre et liens vers photographes taggés
     for (let element of unique) {
-      let elt = document.createElement("button");
+      let elt = document.createElement("span");
       elt.textContent = element;
       elt.classList.add("tagButton");
       tagWrapper.appendChild(elt);
@@ -119,7 +119,7 @@ fetch(myRequest)
       header.appendChild(tagWrapper);
     }
     // listener sur tous les boutons pour déclencher l'apparition du bouton "passer au contenu"
-    let allBoutons = document.getElementsByTagName("button");
+    let allBoutons = document.getElementsByTagName("span");
     for (let i of allBoutons) {
       i.addEventListener("click", () => {
         redirectLink.style.display = "block"

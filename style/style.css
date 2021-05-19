@@ -1,6 +1,6 @@
 body,
 html {
-    font-family: 'DM Sans', sans-serif; /* https://fonts.google.com/specimen/DM-Sans */
+    font-family: "DM Sans", sans-serif; /* https://fonts.google.com/specimen/DM-Sans */
     background: #ffffff;
     color: #901c1c;
     font-weight: 400;
@@ -181,6 +181,8 @@ figcaption p {
     margin-right: 8px;
     cursor: pointer;
     color: #901c1c;
+    font-weight: bold;
+    padding: 0.2em 0.4em;
     border-color: #c4c4c4;
     transition: 0.3s;
     font-size: 12px;
@@ -229,6 +231,8 @@ figcaption p {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
+    max-width: 100%;
+    margin-bottom: 10px;
 }
 #yourMessageTextbox:focus,
 #yourMessageTextbox:active,
@@ -349,7 +353,7 @@ textarea {
     cursor: pointer;
 }
 .thumb-photographie:focus,
-.thumb-video:focus{
+.thumb-video:focus {
     outline: #000000 2px solid;
 }
 option {
@@ -435,6 +439,7 @@ select:focus {
     left: 0;
     top: 0;
     width: 100%;
+    height: 100%;
     background-color: rgb(255, 255, 255);
     justify-content: center;
 }
@@ -443,18 +448,17 @@ select:focus {
     margin: auto;
     padding: 1.5em;
     width: 1250px;
-    height: 1000px;
+
     z-index: 12;
     display: flex;
     justify-content: center;
 }
 .lightbox span {
     font-size: 24px;
-    position: inherit;
-    bottom: 2.5%;
+    margin-top: 15px;
+    place-self: center;
     z-index: 25;
     text-align: center;
-    
 }
 #lightbox img,
 #lightbox video {
@@ -511,7 +515,6 @@ select:focus {
     max-width: 1050px;
     align-self: center;
     object-fit: cover;
-    margin-top: -100px;
 }
 /* The Close Button */
 #closeLightbox {
@@ -527,20 +530,87 @@ select:focus {
 }
 /*mediaQ */
 
-@media (max-width: 1441px) {
+@media (max-width: 1600px) {
     .photographe-wrapper {
         width: 450px;
     }
     #logo {
-        margin-left: 150px;
+        margin-left: 5%;
     }
-    .active{
+    .active {
         max-height: 800px;
-        margin-top: 0;
         align-self: auto;
     }
 }
-@media (min-width: 360px) and (max-width: 666px) {
+@media (max-width: 1500px) {
+    #user {
+        width: auto;
+    }
+
+}
+@media (min-width : 1200px){
+    #total{
+        left : 68%;
+        bottom: 1%;
+    }
+    .active{
+        width: 100%;
+    }
+    .lightbox{
+        flex-direction: column;
+    }
+    #lightbox-content{
+        width: auto;
+    }
+    .lightbox span {
+        position: relative;
+        bottom: 2%;
+    }
+}
+@media (min-width: 611px) and (max-width: 1200px) {
+    .titre {
+        font-size: 24px;
+        right: 14%;
+        top : 4% ;
+        position: absolute;
+    }
+    #logo {
+        margin-left: 2%;
+        width: 40%;
+        left: 0;
+    }
+    .main__header {
+        top: 3%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: baseline;
+    }
+    #lightbox-content{
+        width: 80%;
+        height: 60%;
+    }
+    .lightbox{
+        flex-direction: column;
+    }
+    .lightbox-close {
+        width: 30px;
+        height: 30px;
+    }
+    #modalForm {
+        width: 70%;
+        position: absolute;
+        padding: 0;
+        top : 0 ;
+        bottom: 0 ;
+        max-height: 700px;
+        z-index: 1000;
+        margin: 0;
+        left : 15% ;
+    }
+}
+/* Responsive Général */
+@media (min-width: 360px) and (max-width: 1200px) {
     body {
         margin: 0;
     }
@@ -550,12 +620,6 @@ select:focus {
     .main__header {
         margin: 0;
         display: block;
-    }
-    .titre {
-        font-size: 14px;
-        position: absolute;
-        top: 4%;
-        right: 4%;
     }
     #logo {
         margin-left: 20px;
@@ -576,32 +640,11 @@ select:focus {
         flex-wrap: wrap;
     }
     .tagWrapper {
-        max-width: 200px;
         flex-wrap: wrap;
     }
     .photographie {
         width: 335px;
         height: 190px;
-    }
-    .photographer-header {
-        background-color: #ffffff;
-        padding: 0;
-        height: 200px;
-    }
-    .photographer-location,
-    .photographer-tagline {
-        margin: 0;
-        padding: 0;
-        font-size: 13px;
-        max-width: 200px;
-    }
-    .photographer-name {
-        font-size: 30px;
-        overflow-wrap: normal;
-        max-width: 200px;
-    }
-    .photographer-profile {
-        width: 100%;
     }
     .profile-tagButton {
         font-size: 13px;
@@ -610,10 +653,7 @@ select:focus {
     .tagButton {
         margin: 3px;
     }
-    figure {
-        margin: 2% 5%;
-        width: 90%;
-    }
+
     figcaption {
         margin-top: 5px;
         font-size: 14px;
@@ -622,15 +662,7 @@ select:focus {
         width: 12px;
         height: 12px;
     }
-    #contactMe {
-        position: fixed;
-        bottom: 11%;
-        left: 27%;
-        z-index: 5;
-        width: 170px;
-        height: 35px;
-        font-size: 18px;
-    }
+
     #user {
         width: auto;
         height: auto;
@@ -639,36 +671,8 @@ select:focus {
         width: 170px;
         height: 170px;
     }
-    .thumb-photographerPic {
-        width: 150px;
-        height: 150px;
-        position: absolute;
-        top: 16%;
-        right: 8%;
-    }
-    .thumb-photographie,
-    .thumb-video {
-        width: 100%;
-        height: 190px;
-    }
     #selector-wrapper {
         display: none;
-    }
-    #total {
-        align-self: center;
-        position: static;
-        bottom: 0;
-        margin: auto;
-        margin-top: 25px;
-        margin-bottom: 0;
-    }
-    #modalForm {
-        width: 375px;
-        padding: 0;
-        margin: 0;
-        position: absolute;
-        height: auto;
-        z-index: 10;
     }
     .contactForm {
         z-index: 10;
@@ -689,33 +693,125 @@ select:focus {
     label {
         font-size: 24px;
     }
-    input {
-        width: 338px;
-        height: 50px;
-    }
-
-    #photographer-nameModal {
-        font-size: 36px;
-    }
 
     /*Lightbox */
-    .active {
-        width: 290px;
-        height: 250px;
-    }
+
     #lightbox-content {
-        width: auto;
+        width: 50%;
         max-height: 100%;
     }
     .lightbox {
+        width: 100%;
         height: 100%;
+        flex-direction: column;
     }
     .lightbox-next,
     .lightbox-prev {
         width: 20px;
+        margin: 0;
+    }
+    #total{
+        display: none;
+    }
+    .thumb-photographerPic{
+        position: relative;
+        right: 15%;
+        top: 15%;   
+    }
+
+    input{
+        width: 99%;
+        height: 40px;
+    }
+    #photographer-nameModal{
+        font-size: 34px;
+    }
+}
+
+/* Responsive Mobile */
+@media (min-width : 360px ) and (max-width : 610px){
+    .thumb-photographie,
+    .thumb-video {
+        width: 100%;
+        height: 190px;
+    }
+    figure {
+        margin: 2% 5%;
+        width: 90%;
+    }
+    input {
+        width: 338px;
+        height: 50px;
+    }
+    #contactMe {
+        position: fixed;
+        align-self: center;
+        bottom : 10%;
+        z-index: 5;
+        width: 170px;
+        height: 35px;
+        font-size: 18px;
+    }
+    .thumb-photographerPic {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 9%;
+        right: 8%;
+    }
+    .active {
+        width: 290px;
+        max-height: 90%;
+        align-self : center ;
+    }
+    .photographer-header {
+        background-color: #ffffff;
+        padding: 0;
+        height: 200px;
+    }
+    .titre {
+        font-size: 15px;
+        position: absolute;
+        top: 3%;
+        right: 4%;
+    }
+    .photographer-location,
+    .photographer-tagline {
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+        max-width: 175px;
+    }
+    .photographer-name {
+        font-size: 30px;
+        overflow-wrap: normal;
+        max-width: 190px;
+    }
+    #total {
+        align-self: center;
+        position: static;
+        bottom: 0;
+        margin: auto;
+        margin-top: 25px;
+        margin-bottom: 0;
     }
     .lightbox-close {
         width: 12px;
         height: 12px;
     }
+    #modalForm {
+        width: 375px;
+        position: absolute;
+        padding: 0;
+        top : 0 ;
+        bottom: 0 ;
+        max-height: 750px;
+        z-index: 1000;
+        margin: 0;
+    }
+    #photographer-nameModal {
+        font-size: 36px;
+        width: 280px;
+    }
+    
 }
